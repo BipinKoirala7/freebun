@@ -1,0 +1,4 @@
+node_modules
+.env
+
+MYSQL_URL = mysql://USER:PASSWORD@HOST:PORT/DATABASE
