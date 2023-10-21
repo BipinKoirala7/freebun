@@ -3,7 +3,9 @@ import session, { SessionOptions } from 'express-session'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import passport from 'passport'
+import connectSQL from './database/connectSQL'
 dotenv.config()
+connectSQL()
 
 import userRoutes from './routes/userRoutes'
 
