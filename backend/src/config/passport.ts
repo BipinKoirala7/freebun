@@ -1,16 +1,23 @@
 import passport from "passport";
-import Google from 'passport-google-oauth20'
+import local from 'passport-local'
+import Google, { StrategyOptions as googleStrategyOptions } from 'passport-google-oauth20'
 import dotenv from 'dotenv'
 dotenv.config()
 
+const localStrategy = local.Strategy
+passport.use(new localStrategy((email:string, password:string,done:Function) => {
+    console.log(email, password)
+}))
+
+// GOOGLE STRATEGY 
 const GoogleStrategy = Google.Strategy
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID as string,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    callbackURL:'https://localhost:5173/auth/google/callback'
-}, (acesstoken:string, refreshtoken:string, profile, cb:Function) => {
-    // here the profile is checked to the database if it is present in the database or not!
+    callbackURL: process.env.SERVER_DOMAIN + `/auth/google/callback` as string
+} as googleStrategyOptions, (acesstoken:string, refreshtoken:string, profile:Google.Profile, cb) => {
+    return cb(null,profile)
 }))
 
 passport.serializeUser((user, done) => {

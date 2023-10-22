@@ -8,7 +8,10 @@ dotenv.config()
 connectSQL()
 
 import userRoutes from './routes/userRoutes'
+import bunRoutes from './routes/bunRoute'
+import authRoutes from './routes/authRoutes'
 
+require('./config/passport')
 const app = express()
 
 app.use(cors({
@@ -27,7 +30,9 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/api',userRoutes)
+app.use('/api', userRoutes)
+app.use('/api/game', bunRoutes)
+app.use('/auth', authRoutes)
 
 
 app.listen(process.env.PORT, () => {
