@@ -5,13 +5,22 @@ dotenv.config()
 
 const authRoutes = express.Router()
 
+// authentication with credentials
+authRoutes.post('/login', passport.authenticate('local', { failureRedirect: process.env.CLIENT_DOMAIN + '/login' }),
+    (req:Request,res: Response) => {
+        res.redirect(process.env.CLIENT_DOMAIN as string)
+        console.log(req.params,req.body)
+    })
+
 // google authentication routes
-authRoutes.get('/google',passport.authenticate('google',{scope:['profile']}), (req:Request, res:Response) => {
-    console.log('google callback is triggered')
+authRoutes.get('/google', passport.authenticate('google', { scope: ['profile'] }),
+    (req: Request, res: Response) => {
+        console.log('google callback is triggered')
 })
 
-authRoutes.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (res: Response) => {
-    return res.redirect(process.env.CLIENT_DOMAIN as string)
+authRoutes.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
+    (res: Response) => {
+        return res.redirect(process.env.CLIENT_DOMAIN as string)
 })
 
 export default authRoutes
