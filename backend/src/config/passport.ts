@@ -7,6 +7,7 @@ dotenv.config()
 const localStrategy = local.Strategy
 passport.use(new localStrategy((email:string, password:string,done:Function) => {
     console.log(email, password)
+    done(null,email)
 }))
 
 // GOOGLE STRATEGY 
@@ -22,9 +23,10 @@ passport.use(new GoogleStrategy({
 
 passport.serializeUser((user, done) => {
     // check the user in database and just pass the id not the whole user object
-    done(user)
+    console.log(user)
+    done(null, user)
 })
 
-passport.deserializeUser((user, done) => {
-    done(user)
+passport.deserializeUser((id:string, done) => {
+    done(null, id)
 })

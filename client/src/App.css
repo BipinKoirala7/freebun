@@ -1,0 +1,14 @@
+html{
+    width: screen;
+    height:screen;
+
+}
+
+*{
+    margin:0,
+}
+
+.input-caret{
+    caret: yellow;
+    caret-shape:block;
+}

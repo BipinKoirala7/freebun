@@ -1,14 +1,13 @@
-import passport from "passport";
 import express,{Response,Request} from "express";
 
 const userRoutes = express.Router()
 
-userRoutes.get('/user/:id', (req:Request,res:Response) => {
-    console.log(req.params.id)
+userRoutes.get('/session/user', (req: Request, res: Response) => {
+    console.log(req.session)
     res.send({
         message: 'currently the server is not running properly',
-        UserId:req.params.id
+        User: req.session,
     })
 })
 
-export default userRoutes
+export default userRoutes 

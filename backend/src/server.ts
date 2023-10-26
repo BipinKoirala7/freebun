@@ -2,15 +2,15 @@ import express from 'express'
 import session, { SessionOptions } from 'express-session'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import passport from 'passport'
-import connectSQL from './database/connectSQL'
+import passport from 'passport' 
 dotenv.config()
-connectSQL()
 
+import connectSQL from './database/connectSQL'
 import userRoutes from './routes/userRoutes'
 import bunRoutes from './routes/bunRoute'
 import authRoutes from './routes/authRoutes'
 
+connectSQL()
 require('./config/passport')
 const app = express()
 
@@ -19,12 +19,13 @@ app.use(cors({
     credentials: true,
 }))
 app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 app.use(session({
     secret:'20611221',
     saveUninitialized: true,
     resave: true,
     cookie: {
-        maxAge:86400*30
+        maxAge:8640000*30
     }
 } as SessionOptions))
 app.use(passport.initialize())

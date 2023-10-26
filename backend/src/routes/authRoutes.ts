@@ -9,7 +9,6 @@ const authRoutes = express.Router()
 authRoutes.post('/login', passport.authenticate('local', { failureRedirect: process.env.CLIENT_DOMAIN + '/login' }),
     (req:Request,res: Response) => {
         res.redirect(process.env.CLIENT_DOMAIN as string)
-        console.log(req.params,req.body)
     })
 
 // google authentication routes
@@ -19,7 +18,7 @@ authRoutes.get('/google', passport.authenticate('google', { scope: ['profile'] }
 })
 
 authRoutes.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
-    (res: Response) => {
+    (req:Request,res: Response) => {
         return res.redirect(process.env.CLIENT_DOMAIN as string)
 })
 
