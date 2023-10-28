@@ -12,3 +12,7 @@ html{
     caret: yellow;
     caret-shape:block;
 }
+
+.transition-class{
+    transition:  all 0.5s ease-in;
+}
