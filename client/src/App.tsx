@@ -22,10 +22,8 @@ function App() {
 
   function Root(): JSX.Element{
     return (
-      <main className='p-2 bg-black h-screen w-screen text-white'>
-        <div className='text-white rounded-xl p-2 w-[100%] h-[100%]'>
+      <main className='bg-black min-h-screen w-screen max-w-screen text-white p-2'>
           <Outlet/>
-        </div>
       </main>
 
     )
