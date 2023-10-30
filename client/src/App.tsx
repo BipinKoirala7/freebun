@@ -2,7 +2,8 @@ import './App.css'
 import {Outlet, RouterProvider, createBrowserRouter} from 'react-router-dom'
 import Game from './components/game/game'
 import Home from './components/pages/Home/home'
-// import Logobar from './components/Navbar/logobar'
+import Register from './components/pages/auth/log/register'
+import SignIn from './components/pages/auth/log/signIn'
 
 function App() {
   const router = createBrowserRouter([{
@@ -16,13 +17,21 @@ function App() {
       {
         path: '/game',
         element:<Game />
+      }, 
+      {
+        path: '/auth/register',
+        element:<Register />
+      },
+      {
+        path: '/auth/sign-in',
+        element:<SignIn />
       }
     ]
   }])
 
   function Root(): JSX.Element{
     return (
-      <main className='bg-black min-h-screen w-screen max-w-screen text-white p-2'>
+      <main className='bg-primary-background font-secondary min-h-screen max-w-screen w-screen h-screen max-w-screen text-white'>
           <Outlet/>
       </main>
 
