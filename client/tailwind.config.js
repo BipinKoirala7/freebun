@@ -17,6 +17,10 @@ export default {
       },
       gridTemplateRows: {
         "home-grid": "1fr 3fr 2fr",
+        "play-grid": "1fr 3fr 1fr",
+        "stats-grid":"1fr 5fr"
+      },
+      gridTemplateColumns: {
       },
     },
   },
