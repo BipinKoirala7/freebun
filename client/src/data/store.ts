@@ -1,12 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { setupListeners} from '@reduxjs/toolkit/dist/query'
+import { setupListeners } from '@reduxjs/toolkit/dist/query'
+
 import beeApi from "./Apis/freebee";
-import { wordsReducer } from "./Slices/wordsSlics";
+import { wordsReducer } from "./Slices/SelectedwordsSlics";
+import { wordsArrReducer } from "./Slices/wordArrSlice";
+import addWordToArr from "./thunks/words/addWordtoArr";
+import fetchWordArr from "./thunks/words/fetchWordsfromArr";
 
 const userStore = configureStore({
     reducer: {
         freebee: beeApi.reducer,
-        words:wordsReducer
+        SelectedWords: wordsReducer,
+        wordsArr: wordsArrReducer
     },
     middleware(getDefaultMiddleware) {
         return getDefaultMiddleware()
@@ -17,4 +22,7 @@ const userStore = configureStore({
 setupListeners(userStore.dispatch)
 
 export default userStore
-export * from './Slices/wordsSlics'
+export * from './Slices/SelectedwordsSlics'
+export * from './Slices/wordArrSlice'
+export * from './Apis/freebee'
+export { addWordToArr, fetchWordArr }

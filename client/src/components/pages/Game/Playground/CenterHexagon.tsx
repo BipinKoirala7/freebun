@@ -1,9 +1,7 @@
-type CentralHexagonProp = {
-    word:string
-}
-
 import { useDispatch } from "react-redux"
-import { addWord } from "../../../data/store"
+
+import { addWord } from "../../../../data/store"
+import { type CentralHexagonProp } from "../../../../types"
 
 function Hexagon(props: CentralHexagonProp) {
   const dispatch = useDispatch()

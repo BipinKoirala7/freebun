@@ -1,17 +1,17 @@
-type StoreT = {
-  words: {
-    selected:string
-  }
-}
 import { useSelector } from 'react-redux/es/exports'
+import { useRef } from 'react'
 
 
 import Hexagon from './Hexagon'
 import CenterHexagon from './CenterHexagon'
 import GameOptions from './GameOptions'
+import { WholeStoreT } from '../../../../types'
+import { type SelectedWordsT } from '../../../../types'
 
 function Playground() {
-  const { words } = useSelector<StoreT>(state => state)
+  const inputRef = useRef(null)
+  const data: SelectedWordsT = useSelector<WholeStoreT>(state => state.SelectedWords)
+  console.log(data)
   return (
       <div className="grid grid-rows-play-grid w-[50%] place-items-center gap-4  
         min-h-[100%] px-[1rem] bg-primary-background">
@@ -19,7 +19,8 @@ function Playground() {
          outline-none border-none  p-1 text-[1.5rem] text-secondary"
         placeholder="Type or click"
         // onChange={(e) => handleChange(e)}
-        value={words.selected}
+        value={data.selected}
+        ref={inputRef}
           />
           <div className='flex items-center justify-center'>
               <Hexagon place='left' word='A'/>
@@ -31,7 +32,7 @@ function Playground() {
               <Hexagon place='right' word='G'/>
               
           </div>
-        <GameOptions />
+      <GameOptions currentWord={inputRef.current.target.value} />
       </div>
   )
 }

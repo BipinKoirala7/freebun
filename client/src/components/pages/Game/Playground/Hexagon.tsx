@@ -1,12 +1,7 @@
 import { useDispatch } from "react-redux/es/hooks/useDispatch"
 
-
-import { addWord } from "../../../data/store"
-
-type HexagonProps = {
-    place: string,
-    word:string
-}
+import { addWord } from "../../../../data/store"
+import { type HexagonProps } from "../../../../types"
 
 function getrequiredClass(x: string) {
     return x === 'top-right' ? 'relative top-[-5rem] left-[3rem] transform -translate-x-1/2'

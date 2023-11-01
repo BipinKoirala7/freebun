@@ -1,4 +1,4 @@
-import Stats from "./Stats"
+import Stats from "../Stats/Stats"
 import Playground from "./Playground"
 
 export default function Game() {

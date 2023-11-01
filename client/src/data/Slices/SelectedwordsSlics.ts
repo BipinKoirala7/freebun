@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const wordsSlice = createSlice({
-    name: 'words',
+const SelectedWordsSlice = createSlice({
+    name: 'SelectedWords',
     initialState: {
         selected: '',
     },
@@ -21,5 +21,5 @@ const wordsSlice = createSlice({
     }
 })
 
-export const wordsReducer = wordsSlice.reducer
-export const { addWord, removeWord ,clearWords} = wordsSlice.actions
+export const wordsReducer = SelectedWordsSlice.reducer
+export const { addWord, removeWord ,clearWords} = SelectedWordsSlice.actions
