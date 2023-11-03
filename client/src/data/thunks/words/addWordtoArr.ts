@@ -3,14 +3,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const addWordToArr = createAsyncThunk('add/wordArr', async (word:string) => {
     try {
-        const response: AxiosResponse = await axios.post('https://localhost:5173/words', {
-            word
+        console.log(word)
+        const response: AxiosResponse = await axios.post('http://localhost:3000/words', {
+            word:word
         })
         const data = await response.data
         console.log(data)
         return data
     }
     catch (err: unknown) {
+        console.log(err)
         throw new Error(err as string)
         // check the kind of object and changed the type of the error
     }

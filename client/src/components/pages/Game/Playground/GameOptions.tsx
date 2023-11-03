@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux"
 import { SlRefresh } from 'react-icons/sl'
+import { type AppDispatch } from "../../../../data/store"
 
 import { removeWord } from "../../../../data/store"
 import { addWordToArr } from '../../../../data/store'
 
 function GameOptions(props:{currentWord:string}) {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
 
     function handleDelete() {
         dispatch(removeWord())

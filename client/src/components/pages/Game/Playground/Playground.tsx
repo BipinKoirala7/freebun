@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux/es/exports'
-import { useRef } from 'react'
 
 
 import Hexagon from './Hexagon'
@@ -9,8 +8,7 @@ import { WholeStoreT } from '../../../../types'
 import { type SelectedWordsT } from '../../../../types'
 
 function Playground() {
-  const inputRef = useRef(null)
-  const data: SelectedWordsT = useSelector<WholeStoreT>(state => state.SelectedWords)
+  const data: SelectedWordsT = useSelector((state:WholeStoreT) => state.SelectedWords)
   console.log(data)
   return (
       <div className="grid grid-rows-play-grid w-[50%] place-items-center gap-4  
@@ -20,7 +18,6 @@ function Playground() {
         placeholder="Type or click"
         // onChange={(e) => handleChange(e)}
         value={data.selected}
-        ref={inputRef}
           />
           <div className='flex items-center justify-center'>
               <Hexagon place='left' word='A'/>
@@ -32,7 +29,7 @@ function Playground() {
               <Hexagon place='right' word='G'/>
               
           </div>
-      <GameOptions currentWord={inputRef.current.target.value} />
+      <GameOptions currentWord={data.selected} />
       </div>
   )
 }

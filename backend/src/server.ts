@@ -7,7 +7,7 @@ dotenv.config()
 
 import connectSQL from './database/connectSQL'
 import userRoutes from './routes/userRoutes'
-import bunRoutes from './routes/bunRoute'
+import beeRoutes from './routes/beeRoute'
 import authRoutes from './routes/authRoutes'
 
 connectSQL()
@@ -32,7 +32,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use('/api', userRoutes)
-app.use('/api/game', bunRoutes)
+app.use('/api/game', beeRoutes)
 app.use('/auth', authRoutes)
 
 

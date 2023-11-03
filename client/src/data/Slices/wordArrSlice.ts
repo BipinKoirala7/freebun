@@ -6,7 +6,7 @@ import addWordArr from "../thunks/words/addWordtoArr";
 const wordArrSlice = createSlice({
     name: 'wordArr',
     initialState: {
-        data: [],
+        data: ['blind'],
         isLoading: false,
         error:null
     },
@@ -15,32 +15,38 @@ const wordArrSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(fetchWordArr.fulfilled, (state, action) => {
+            console.log(action)
             state.isLoading = false
             state.data = action.payload
             state.error = null
         })
-        builder.addCase(fetchWordArr.pending, (state) => {
+        builder.addCase(fetchWordArr.pending, (state,action) => {
+            console.log(action)
             state.isLoading = true
             state.error = null
         })
         builder.addCase(fetchWordArr.rejected, (state, action) => {
+            console.log(action)
             state.error = action.error
             state.isLoading = false
         })
-        builder.addCase(addWordArr.pending, (state) => {
+        builder.addCase(addWordArr.pending, (state,action) => {
+            console.log(action)
             state.isLoading = true
             state.error = null 
         })
         builder.addCase(addWordArr.fulfilled, (state, action) => {
+            console.log(action)
             state.data = action.payload
             state.error = null
             state.isLoading = false
         })
         builder.addCase(addWordArr.rejected, (state, action) => {
+            console.log(action)
             state.error = action.error
             state.isLoading = false
         })
     },
 })
 
-export const wordsArrReducer = wordArrSlice.reducer
+export default wordArrSlice
