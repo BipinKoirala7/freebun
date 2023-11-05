@@ -3,7 +3,7 @@ import axios,{ AxiosResponse } from "axios";
 
 const fetchWordArr = createAsyncThunk('fetch/wordArr', async() => {
     try {
-        const wordArr: AxiosResponse = await axios.get('http://localhost:3000/words')
+        const wordArr: AxiosResponse = await axios.get('http://localhost:3000/wordArr')
         const data = await wordArr.data
         console.log(data)
         return data

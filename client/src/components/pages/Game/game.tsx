@@ -1,5 +1,5 @@
-import Stats from "../Stats/Stats"
-import Playground from "./Playground"
+import Stats from "./Stats/Stats"
+import Playground from "./Playground/Playground"
 
 export default function Game() {
   console.log('game component reload')

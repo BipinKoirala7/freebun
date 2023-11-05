@@ -33,7 +33,13 @@ type WholeStoreT = {
 }
 
 type Words_listsT = {
-  wordArr:Array<string>
+  wordArr:Array<wordT>
+}
+
+// for compatibility right now , might not be needed when deploying
+type wordT = {
+  word: string,
+  id:number
 }
 
 // New game response for type checking
@@ -138,5 +144,6 @@ export type {
   WholeStoreT,
   UserT,
   GameT, wordArrT,
-  Words_listsT
+  Words_listsT,
+  wordT
 }

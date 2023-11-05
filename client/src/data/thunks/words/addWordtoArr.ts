@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 const addWordToArr = createAsyncThunk('add/wordArr', async (word:string) => {
     try {
         console.log(word)
-        const response: AxiosResponse = await axios.post('http://localhost:3000/words', {
+        const response: AxiosResponse = await axios.post('http://localhost:3000/wordArr', {
             word:word
         })
         const data = await response.data

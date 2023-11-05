@@ -1,6 +1,6 @@
 import './App.css'
 import {Outlet, RouterProvider, createBrowserRouter} from 'react-router-dom'
-import Game from './components/pages/Game/Playground/game'
+import Game from './components/pages/Game/game'
 import Home from './components/pages/Home/home'
 import Register from './components/pages/auth/log/register'
 import SignIn from './components/pages/auth/log/signIn'

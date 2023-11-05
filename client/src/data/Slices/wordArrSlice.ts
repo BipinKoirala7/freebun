@@ -6,7 +6,7 @@ import addWordArr from "../thunks/words/addWordtoArr";
 const wordArrSlice = createSlice({
     name: 'wordArr',
     initialState: {
-        data: ['blind'],
+        data: [],
         isLoading: false,
         error:null
     },

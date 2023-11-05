@@ -5,6 +5,34 @@
     {
       "word": "BG",
       "id": 1
+    },
+    {
+      "word": "BFGDAE",
+      "id": 2
+    },
+    {
+      "word": "EDBGFE",
+      "id": 3
+    },
+    {
+      "word": "CBGFE",
+      "id": 4
+    },
+    {
+      "word": "CBDFG",
+      "id": 5
+    },
+    {
+      "word": "BCAE",
+      "id": 6
+    },
+    {
+      "word": "CDGFE",
+      "id": 7
+    },
+    {
+      "word": "GFE",
+      "id": 8
     }
   ]
 }
