@@ -23,13 +23,14 @@ type SelectedWordsT = {
 type WordsArrT = {
     isLoading: boolean,
     isError: null | string,
-    data: Array<string>
+    data: Array<wordT>
 }
 
 type WholeStoreT = {
   frebee: FreebeeStoreT,
   SelectedWords: SelectedWordsT,
-  wordsArr: WordsArrT
+  wordsArr: WordsArrT,
+  newGame: GameDataT
 }
 
 type Words_listsT = {
@@ -105,6 +106,18 @@ type wordT = {
 //   ]
 // }
 
+type GameDataT = {
+  statusCode: string,
+  ok:boolean,
+  result: {
+    letters: string,
+    center: string,
+    words: number,
+    total: number,
+    wordlist:Array<string>
+  }
+}
+
 // for database compatibility
 type UserT = {
   user_id: string,
@@ -145,5 +158,6 @@ export type {
   UserT,
   GameT, wordArrT,
   Words_listsT,
-  wordT
+  wordT,
+  GameDataT
 }

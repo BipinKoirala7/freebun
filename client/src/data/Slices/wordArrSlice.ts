@@ -37,7 +37,9 @@ const wordArrSlice = createSlice({
         })
         builder.addCase(addWordArr.fulfilled, (state, action) => {
             console.log(action)
-            state.data = action.payload
+            const Array = state.data
+            Array.push(action.payload)
+            state.data = Array
             state.error = null
             state.isLoading = false
         })

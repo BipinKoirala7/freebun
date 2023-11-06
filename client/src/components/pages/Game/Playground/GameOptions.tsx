@@ -3,6 +3,7 @@ import { SlRefresh } from 'react-icons/sl'
 import { type AppDispatch } from "../../../../data/store"
 
 import { removeWord } from "../../../../data/store"
+import { clearWords } from "../../../../data/store"
 import { addWordToArr } from '../../../../data/store'
 
 function GameOptions(props:{currentWord:string}) {
@@ -14,6 +15,7 @@ function GameOptions(props:{currentWord:string}) {
   
   function HandleEnter() {
     dispatch(addWordToArr(props.currentWord))
+    dispatch(clearWords())
   }
 
   return (
