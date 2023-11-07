@@ -17,15 +17,16 @@ const app = express()
 app.use(cors({
     methods: ['GET', 'PATCH', 'DELETE', 'PUT'],
     credentials: true,
+    origin:'http://localhost:5173'
 }))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(session({
-    secret:'20611221',
+    secret: '20611221',
     saveUninitialized: true,
     resave: true,
     cookie: {
-        maxAge:8640000*30
+        maxAge:8640000*3000
     }
 } as SessionOptions))
 app.use(passport.initialize())

@@ -1,30 +1,129 @@
 {
-  "user": [],
-  "game": [],
-  "wordArr": [
+  "users": [
     {
-      "word": "BG",
+      "user_id": "4a56faa26ec4d651df9a",
+      "provider_id": "116010922225876514692",
+      "username": "BIPIN KOIRALA",
+      "email": "www.koiralafamily123@gmail.com",
+      "password": "",
+      "photos": "https://lh3.googleusercontent.com/a/ACg8ocJDfxd8NwUVjGa21frVsMiYfeMYATtk3djgZKl9UT5W5A=s96-c",
+      "provider": "google",
+      "email_verified": true,
       "id": 1
-    },
+    }
+  ],
+  "game": [
     {
-      "word": "BFGDAE",
-      "id": 2
-    },
+      "game_id": "1234567890",
+      "user_id": "123456789",
+      "game_status": "not finished",
+      "game_data": {
+        "letters": "elnadc",
+        "center": "h",
+        "words": 86,
+        "total": 484,
+        "wordlist": [
+          "aahed",
+          "ache",
+          "ached",
+          "achene",
+          "ahead",
+          "allheal",
+          "cache",
+          "cached",
+          "caleche",
+          "cancha",
+          "chad",
+          "chalah",
+          "chaleh",
+          "challa",
+          "challah",
+          "chance",
+          "chanced",
+          "chancel",
+          "chandelle",
+          "chandelled",
+          "channel",
+          "channeled",
+          "channelled",
+          "chela",
+          "chelae",
+          "clach",
+          "clachan",
+          "cleanhanded",
+          "clench",
+          "clenched",
+          "dacha",
+          "dahl",
+          "daledh",
+          "deadhead",
+          "deadheaded",
+          "dhal",
+          "each",
+          "eche",
+          "eched",
+          "echelle",
+          "enhance",
+          "enhanced",
+          "hadal",
+          "hade",
+          "haded",
+          "haed",
+          "haen",
+          "haha",
+          "halacha",
+          "halal",
+          "halala",
+          "halalah",
+          "hale",
+          "haled",
+          "hall",
+          "hallah",
+          "hallel",
+          "hance",
+          "hand",
+          "handed",
+          "handheld",
+          "handle",
+          "handled",
+          "head",
+          "headache",
+          "headed",
+          "headland",
+          "heal",
+          "healed",
+          "heddle",
+          "heed",
+          "heeded",
+          "heel",
+          "heeled",
+          "held",
+          "hell",
+          "helled",
+          "hence",
+          "henna",
+          "hennaed",
+          "leach",
+          "leached",
+          "lech",
+          "leched",
+          "leech",
+          "leeched"
+        ]
+      }
+    }
+  ],
+  "wordCollection": [
     {
-      "word": "BCAEFGB",
-      "id": 3
-    },
-    {
-      "word": "BG",
-      "id": 4
-    },
-    {
-      "word": "ABCDEFG",
-      "id": 5
-    },
-    {
-      "word": "BDE",
-      "id": 6
+      "game_id": "1234567890",
+      "wordArr": [
+        "hale",
+        "haled",
+        "hall",
+        "hallah",
+        "hallel",
+        "hance"
+      ]
     }
   ]
 }

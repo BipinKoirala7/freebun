@@ -12,12 +12,12 @@ authRoutes.post('/login', passport.authenticate('local', { failureRedirect: proc
     })
 
 // google authentication routes
-authRoutes.get('/google', passport.authenticate('google', { scope: ['profile'] }),
+authRoutes.get('/google', passport.authenticate('google', { scope: ['profile','email'] }),
     (req: Request, res: Response) => {
         console.log('google callback is triggered')
 })
 
-authRoutes.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
+authRoutes.get('/google/callback', passport.authenticate('google',{ failureRedirect: 'http://localhost:5173/auth/register' }),
     (req:Request,res: Response) => {
         return res.redirect(process.env.CLIENT_DOMAIN as string)
 })

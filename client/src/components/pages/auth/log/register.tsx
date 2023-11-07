@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 // import Logobar from '../../../Navbar/Home/logobar'
 
 function Register() {
+
+    function handleClick() {
+        window.open('http://localhost:4000/auth/google')
+    }
   return (
       <main className="flex items-center justify-center h-[100%] p-4">
           <div className='flex  border-[1px] border-primary rounded-xl w-fit h-fit place-items-center'>
@@ -16,7 +20,7 @@ function Register() {
 
                 <div className="flex flex-col gap-2 lg:w-[50%] px-16 py-4 items-center justify-center">
                     <h1 className="text-[2.5em] text-secondary">Register</h1>
-                    <button className="flex flex-row border-[1px] rounded-xl gap-2 items-center w-[100%] py-2 justify-center hover:bg-primary hover:text-primary-background transition-class">
+                    <button onClick={handleClick} className="flex flex-row border-[1px] rounded-xl gap-2 items-center w-[100%] py-2 justify-center hover:bg-primary hover:text-primary-background transition-class">
                         <img src={Google_Png} alt="" className="aspect-square w-6 "/>
                         <p>Sign Up with Google</p>
                     </button>

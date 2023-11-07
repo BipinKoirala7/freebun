@@ -33,7 +33,7 @@ function Hexagon(props: HexagonProps) {
                 3.8711 C 29.3595 2.2070 26.5704 2.2305 23.7344 3.8711 L 7.4219 13.1523 C 5.4297
                 14.3008 4.2110 15.4961 4.2110 18.8008 L 4.2110 37.0352 C 4.2110 40.4336 5.4063
                 41.6992 7.5860 42.9414 Z" ></path>
-              <text x="48%" y="60%" textAnchor="middle" fill="#e5e5e5" fontSize="15">{ props.word.toUpperCase() }</text>
+              <text x="48%" y="60%" textAnchor="middle" fill="#e5e5e5" fontSize="15">{ props.word?.toUpperCase() }</text>
           </svg>
       </button>
   )

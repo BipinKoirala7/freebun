@@ -1,13 +1,13 @@
 import Progress_bar from "./Progress_bar"
 import Words_list from "./Words_list"
-import {  type WholeStoreT, WordsArrT } from "../../../../types"
+import {  type WholeStoreT, wordArrStoreT } from "../../../../types"
 
 
 import { useSelector } from "react-redux"
 
 
 function Stats() {
-  const result:WordsArrT = useSelector((state: WholeStoreT) => state.wordsArr)
+  const result:wordArrStoreT = useSelector((state: WholeStoreT) => state.wordsArr)
   console.log(result)
   
   return (

@@ -1,8 +1,25 @@
 import HomeNavbar from "../../Navbar/Home/HomeNavbar"
 import HomeDescription from "./HomeDescription"
 import Play from "./PlayBtn"
+import { type SessionPassportUserT } from "../../../types"
+
+import { useEffect } from "react"
+import axios from "axios"
+import { redirect } from "react-router-dom"
 
 export default function Home() {
+  useEffect(() => {
+    async function findUserFromSession() {
+      const res = await axios.get('http://localhost:4000/api/session/user',{withCredentials:true})
+      const data:SessionPassportUserT = await res.data
+      console.log(data.User.passport.user)
+      if (data.User.passport.user) {
+        redirect('/auth/register')
+        console.log('this if block ran successfully')
+      }
+    }
+    findUserFromSession()
+  },[])
   return (
     <div className="max-w-[100%] w-[100%] min-h-screen 
         h-[100%] grid grid-rows-home-grid p-2">

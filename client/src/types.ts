@@ -1,3 +1,5 @@
+// 1)Hexagon Props
+
 type CentralHexagonProp = {
     word:string
 }
@@ -7,117 +9,98 @@ type HexagonProps = {
     word:string
 }
 
+// 1:end
+
+// 2 Progress object type
+
 type ProgressT = {
     height: string,
     progress: string,
 }
 
-type FreebeeStoreT = {
-  freebee: string,
+// 2 -> end
+// 3) Words Object type
+
+type wordT = {
+  word: string,
 }
 
-type SelectedWordsT = {
-  selected:string
-}
+// 3-> end
+// 4) redux common type store and store
 
-type WordsArrT = {
-    isLoading: boolean,
-    isError: null | string,
-    data: Array<wordT>
+type ReduxStoreT<T> = {
+  data: Array<T>,
+  isLoading: boolean,
+  isError:null
 }
 
 type WholeStoreT = {
-  frebee: FreebeeStoreT,
-  SelectedWords: SelectedWordsT,
-  wordsArr: WordsArrT,
-  newGame: GameDataT
+  SelectedWords: SelectedWordsStoreT,
+  wordsArr: wordArrStoreT,
+  newGame: gameDataStoreT
 }
 
-type Words_listsT = {
+type wordArrStoreT = ReduxStoreT<wordT>
+
+type SelectedWordsStoreT = {
+  selected:string
+}
+
+type gameDataStoreT = ReduxStoreT<GameData>
+
+// 5)WordArray Object type 
+
+type wordArrPropsT = {
+  wordArr : Array<string>
+}
+
+type wordArrT = {
+  game_id: string,
+  wordArr_id: string,
   wordArr:Array<wordT>
 }
 
-// for compatibility right now , might not be needed when deploying
-type wordT = {
-  word: string,
-  id:number
-}
+// 5-> end
+// 6) Game
 
-// New game response for type checking
-
-// {
-//   "letters": "licemp",
-//   "center": "u",
-//   "words": 52,
-//   "total": 211,
-//   "wordlist": [
-//     "cecum",
-//     "cellule",
-//     "cilium",
-//     "clue",
-//     "clump",
-//     "cull",
-//     "culm",
-//     "cumuli",
-//     "cupel",
-//     "cupule",
-//     "emeu",
-//     "ileum",
-//     "ilium",
-//     "illume",
-//     "leucemic",
-//     "lieu",
-//     "limuli",
-//     "luce",
-//     "lull",
-//     "lulu",
-//     "lump",
-//     "milieu",
-//     "milium",
-//     "mucluc",
-//     "mule",
-//     "mull",
-//     "mumm",
-//     "mump",
-//     "mumu",
-//     "muumuu",
-//     "peculium",
-//     "peepul",
-//     "peplum",
-//     "picul",
-//     "pileum",
-//     "pileup",
-//     "pilule",
-//     "plum",
-//     "plume",
-//     "plump",
-//     "plumule",
-//     "puce",
-//     "pule",
-//     "puli",
-//     "pull",
-//     "pullup",
-//     "pulp",
-//     "pumice",
-//     "pummel",
-//     "pump",
-//     "pupil",
-//     "uppile"
-//   ]
-// }
-
-type GameDataT = {
-  statusCode: string,
-  ok:boolean,
-  result: {
+type GameWholeDataT = {
     letters: string,
     center: string,
     words: number,
     total: number,
     wordlist:Array<string>
-  }
 }
 
+type GameApiResponseT = {
+  statusCode: string,
+  ok: boolean,
+  result:GameWholeDataT
+}
+
+type GameData = {
+  gameId: string,
+  // userId:string,  needed for specifying user
+  gameInfo:GameWholeDataT
+}
+
+// 6 -> end
+// 7-> Session for User
+
+type SessionPassportUserT = {
+  User: {
+      passport: {
+        user: [{
+            user_id: string,
+            email: string,
+            password: string,
+            provider_id: string,
+            username:string
+        }]
+    }
+   }
+}
+
+// 
 // for database compatibility
 type UserT = {
   user_id: string,
@@ -135,29 +118,28 @@ type GameT = {
   game_data: {
     central_word: string,
     words: string,
-    combination:Array<string>
+    wordlists:Array<string>
   }
-  word_ids:Array<string>
 }
 
-type wordArrT = {
-  game_id: string,
-  wordArr_id: string,
-  wordArr:Array<string>
-}
 // upto here for database compatibility
 
 export type {
   CentralHexagonProp,
   HexagonProps,
   ProgressT,
-  FreebeeStoreT,
-  SelectedWordsT,
-  WordsArrT,
-  WholeStoreT,
-  UserT,
-  GameT, wordArrT,
-  Words_listsT,
   wordT,
-  GameDataT
+  ReduxStoreT,
+  wordArrStoreT,
+  SelectedWordsStoreT,
+  gameDataStoreT,
+  wordArrPropsT,
+  wordArrT,
+  WholeStoreT,
+  SessionPassportUserT,
+  GameWholeDataT,
+  GameApiResponseT,
+  GameData,
+  UserT,
+  GameT,
 }
