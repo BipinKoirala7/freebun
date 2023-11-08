@@ -87,17 +87,15 @@ type GameData = {
 // 7-> Session for User
 
 type SessionPassportUserT = {
-  User: {
-      passport: {
-        user: [{
-            user_id: string,
-            email: string,
-            password: string,
-            provider_id: string,
-            username:string
-        }]
-    }
-   }
+  message: string,
+  IsUserInSession:boolean,
+  user: [{
+      user_id: string,
+      email: string,
+      password: string,
+      provider_id: string,
+      username:string
+  }]
 }
 
 // 

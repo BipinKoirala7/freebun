@@ -1,11 +1,34 @@
+import { useState } from 'react'
 import Google_Png from '../../../../assets/google_png.png'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 // import Logobar from '../../../Navbar/Home/logobar'
 
 function Register() {
-
-    function handleClick() {
+    const [UserInfo, SetUserInfo] = useState({})
+    
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        SetUserInfo(prev => {
+            return {
+                ...prev,
+                [e.target.name]: e.target.value
+            }
+        })
+    }
+    
+    console.log(UserInfo)
+    function handleGoogleClick() {
         window.open('http://localhost:4000/auth/google')
+    }
+
+    async function handleLocalClick() {
+        try {
+            const res = await axios.post('http://localhost:4000/auth/register',UserInfo)
+            const data = await res.data
+            console.log(data)
+        } catch (error) {
+            console.log(error)  
+        }
     }
   return (
       <main className="flex items-center justify-center h-[100%] p-4">
@@ -20,7 +43,7 @@ function Register() {
 
                 <div className="flex flex-col gap-2 lg:w-[50%] px-16 py-4 items-center justify-center">
                     <h1 className="text-[2.5em] text-secondary">Register</h1>
-                    <button onClick={handleClick} className="flex flex-row border-[1px] rounded-xl gap-2 items-center w-[100%] py-2 justify-center hover:bg-primary hover:text-primary-background transition-class">
+                    <button onClick={handleGoogleClick} className="flex flex-row border-[1px] rounded-xl gap-2 items-center w-[100%] py-2 justify-center hover:bg-primary hover:text-primary-background transition-class">
                         <img src={Google_Png} alt="" className="aspect-square w-6 "/>
                         <p>Sign Up with Google</p>
                     </button>
@@ -31,13 +54,33 @@ function Register() {
                 </div>    
                 <div className="flex flex-col gap-2  p-2 w-[100%]">
                     <label htmlFor="username">Username</label>
-                    <input type="text" id="username"  className="leading-[2em] px-4 py-2 rounded-md bg-transparent text-secondary border-[1px] border-primary outline-none" placeholder="Ex. Bipin"/>
+                    <input 
+                        type="text" 
+                        id="username"
+                        name='username'
+                        onChange={(e=> handleChange(e))}
+                        className="leading-[2em] px-4 py-2 rounded-md bg-transparent text-secondary border-[1px] border-primary outline-none" 
+                        placeholder="Ex. Bipin"/>
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email"  className="leading-[2em] px-4 py-2 rounded-md bg-transparent text-secondary border-[1px] border-primary outline-none" placeholder="Ex.**********@gmail.com"/>
+                    <input 
+                        type="email" 
+                        id="email"
+                        name='email'  
+                        onChange={(e=> handleChange(e))}
+                        className="leading-[2em] px-4 py-2 rounded-md bg-transparent text-secondary border-[1px] border-primary outline-none" 
+                        placeholder="Ex.**********@gmail.com"/>
                     <label htmlFor="password">Password</label>
-                    <input type="password" id="password" className="leading-[2em] px-4 py-2 rounded-md bg-transparent text-secondary border-[1px] border-primary outline-none" placeholder="?**********" />
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name='password'
+                        onChange={(e=> handleChange(e))}
+                        className="leading-[2em] px-4 py-2 rounded-md bg-transparent text-secondary border-[1px] border-primary outline-none" 
+                        placeholder="?**********" />
                 </div>
-                <button className="bg-secondary text-primary-background w-full py-3 rounded-md hover:bg-primary transition-class">
+                  <button
+                      onClick={handleLocalClick}
+                      className="bg-secondary text-primary-background w-full py-3 rounded-md hover:bg-primary transition-class">
                     Sign Up
                 </button>
                 <div className="flex gap-1">

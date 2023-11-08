@@ -1,7 +1,6 @@
 import Stats from "./Stats/Stats"
 import Playground from "./Playground/Playground"
 import { type AppDispatch } from "../../../data/store"
-import { fetchWordArr } from "../../../data/store"
 import {fetchNewGame} from "../../../data/store"
 
 import { useEffect } from "react"
@@ -15,7 +14,6 @@ export default function Game() {
   useEffect(() => {
     async function refreshData() {
       await dispatch(fetchNewGame())
-      await dispatch(fetchWordArr('1234567890'))
     }
     refreshData()
   },[])

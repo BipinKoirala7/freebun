@@ -9,9 +9,37 @@ import { generateUniqueId } from "../lib/util";
 dotenv.config()
 
 const localStrategy = local.Strategy
-passport.use(new localStrategy((email:string, password:string,done:Function) => {
-    console.log(email, password)
-    done(null,email)
+passport.use(new localStrategy({
+    usernameField: 'email',
+    passwordField:'password'
+    }, async (email:string, password:string,done:Function) => {
+    try {
+        const res = await axios.get(`http://localhost:3000/users?email=${email}`)
+        const AvailableUser = res.data
+        console.log('Available user',AvailableUser)
+        if (AvailableUser.length > 0) {
+            done(null, AvailableUser)
+        }
+        else {
+            const newUser:UserT = {
+                user_id: generateUniqueId(20),
+                provider_id: '',
+                email: email,
+                password: password,
+                username: '',
+                provider: 'credentials',
+                email_verified: 'false',
+                photos:''
+            }
+            const res = await axios.post('http://localhost:3000/users', newUser)
+            const user = await res.data
+            done(null,user)
+            console.log(newUser)
+        }
+    }
+    catch (error) {
+        done(error)
+    }
 }))
 
 // GOOGLE STRATEGY 
@@ -47,9 +75,9 @@ passport.use(new GoogleStrategy({
                 return cb(null,newUser)
             }
         }
-        catch (error) {
+        catch (error:any) {
             console.log(error)
-            cb('Something went wrong')
+            cb(error)
         }
 }))
 

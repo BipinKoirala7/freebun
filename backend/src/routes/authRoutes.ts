@@ -6,8 +6,9 @@ dotenv.config()
 const authRoutes = express.Router()
 
 // authentication with credentials
-authRoutes.post('/login', passport.authenticate('local', { failureRedirect: process.env.CLIENT_DOMAIN + '/login' }),
-    (req:Request,res: Response) => {
+authRoutes.post('/register', passport.authenticate('local', { failureRedirect: process.env.CLIENT_DOMAIN + '/auth/register' }),
+    (req: Request, res: Response) => {
+        console.log('Request bpdy acessed',req.body)
         res.redirect(process.env.CLIENT_DOMAIN as string)
     })
 

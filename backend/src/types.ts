@@ -9,4 +9,16 @@ type UserT = {
     email_verified:string
 }
 
-export { UserT}
+type SessionPassportUserT = {
+  message: string,
+  IsUserInSession:boolean,
+  user: [{
+      user_id: string,
+      email: string,
+      password: string,
+      provider_id: string,
+      username:string
+  }]
+}
+
+export { UserT, SessionPassportUserT}
