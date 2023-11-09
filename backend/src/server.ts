@@ -9,6 +9,7 @@ import connectSQL from './database/connectSQL'
 import userRoutes from './routes/userRoutes'
 import beeRoutes from './routes/beeRoute'
 import authRoutes from './routes/authRoutes'
+import gameRoutes from './routes/gameRoutes'
 
 connectSQL()
 require('./config/passport')
@@ -33,8 +34,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use('/api', userRoutes)
-app.use('/api/game', beeRoutes)
+app.use('/api/bee', beeRoutes)
 app.use('/auth', authRoutes)
+app.use('/api/game',gameRoutes)
 
 
 app.listen(process.env.PORT, () => {

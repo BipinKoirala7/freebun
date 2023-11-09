@@ -28,7 +28,6 @@ passport.use(new localStrategy({
                 password: password,
                 username: '',
                 provider: 'credentials',
-                email_verified: 'false',
                 photos:''
             }
             const res = await axios.post('http://localhost:3000/users', newUser)

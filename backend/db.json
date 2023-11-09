@@ -8,7 +8,6 @@
       "password": "",
       "photos": "https://lh3.googleusercontent.com/a/ACg8ocJDfxd8NwUVjGa21frVsMiYfeMYATtk3djgZKl9UT5W5A=s96-c",
       "provider": "google",
-      "email_verified": true,
       "id": 1
     },
     {
@@ -18,16 +17,15 @@
       "password": "1234567890",
       "username": "",
       "provider": "credentials",
-      "email_verified": "false",
       "photos": "",
       "id": 2
     }
   ],
   "game": [
     {
+      "id": 1,
       "game_id": "1234567890",
       "user_id": "123456789",
-      "game_status": "not finished",
       "game_data": {
         "letters": "elnadc",
         "center": "h",
@@ -126,6 +124,7 @@
   ],
   "wordCollection": [
     {
+      "id":1,
       "game_id": "1234567890",
       "wordArr": [
         "hale",

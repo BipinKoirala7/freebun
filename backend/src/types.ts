@@ -6,7 +6,6 @@ type UserT = {
     username: string,
     photos: string,
     provider: string,
-    email_verified:string
 }
 
 type SessionPassportUserT = {
@@ -21,4 +20,41 @@ type SessionPassportUserT = {
   }]
 }
 
-export { UserT, SessionPassportUserT}
+type ServerApiResponsePropsT = {
+  message: string,
+  data: Array<any> | [],
+  status: number,
+  ok: boolean
+}
+
+// game type properties
+type GameDataT = {
+    letters: string,
+    center: string,
+    words: number,
+    total: number,
+    wordlist:Array<string>
+}
+
+type GameApiResponseT = {
+  statusCode: string,
+  ok: boolean,
+  result:GameDataT
+}
+
+type GameWholeDataT = {
+  gameId: string,
+  userId:string, 
+  gameInfo: GameDataT,
+  IsgameFinished: boolean
+}
+// game-end
+
+export {
+  UserT,
+  SessionPassportUserT,
+  ServerApiResponsePropsT,
+  GameApiResponseT,
+  GameDataT,
+  GameWholeDataT
+}
