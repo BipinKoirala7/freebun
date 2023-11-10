@@ -4,15 +4,13 @@ import axios, { AxiosResponse } from "axios";
 
 import type { GameApiResponseT } from "../../../types";
 
-const fetchNewGame = createAsyncThunk('fetch/new_game',async() => {
+const fetchNewGame = createAsyncThunk('fetch/new_game',async(user_id:string) => {
     try {
-        const response: AxiosResponse = await axios.get('http://localhost:4000/api/game/new')
-        const data = await response.data
-        const gameData: GameApiResponseT = data
-        console.log(gameData)
+        const response: AxiosResponse<GameApiResponseT> = await axios.get(`http://localhost:4000/api/gameCollection/user/${user_id}/new`)
+        const data = response.data
         const obj = {
             gameId:nanoid(16),
-            gameInfo:gameData.result
+            gameInfo: data.result
         }
         console.log(obj)
         return obj

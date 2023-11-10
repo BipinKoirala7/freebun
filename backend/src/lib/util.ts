@@ -13,7 +13,7 @@ function generateUniqueId(length: number) {
   return code
 }
 
-function getResponseObject(status:number,data:Array<any>|[],ok:boolean,message:string) {
+function getResponseObject(status:number,data:Array<any>|[] | {},ok:boolean,message:string) {
   const obj = {
     message: message,
     status:status,
@@ -23,20 +23,6 @@ function getResponseObject(status:number,data:Array<any>|[],ok:boolean,message:s
   return obj
 }
 
-async function checkValidUserId(userId: string): Promise<boolean | Error>{
-  try {
-    const response = await axios.get('http://localhost:4000/api/users/' + userId)
-    const user:ServerApiResponsePropsT = await response.data
-    if (user.data.length > 0) {
-      return true
-    }
-    else {
-      return false
-    }
-  }
-  catch (error) {
-    return new Error('Something went wrong')
-  }
-}
 
-export { generateUniqueId, getResponseObject, checkValidUserId } 
+
+export { generateUniqueId, getResponseObject } 

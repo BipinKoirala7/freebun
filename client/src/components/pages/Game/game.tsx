@@ -13,7 +13,7 @@ export default function Game() {
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
     async function refreshData() {
-      await dispatch(fetchNewGame())
+      await dispatch(fetchNewGame('123'))
     }
     refreshData()
   },[])

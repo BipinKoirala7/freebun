@@ -98,7 +98,14 @@ type SessionPassportUserT = {
   }]
 }
 
-// 
+//
+
+// props types for other
+type FetchPreviousGameArgT = {
+  game_id: string,
+  user_id:string
+}
+
 // for database compatibility
 type UserT = {
   user_id: string,
@@ -138,6 +145,7 @@ export type {
   GameWholeDataT,
   GameApiResponseT,
   GameData,
+  FetchPreviousGameArgT,
   UserT,
   GameT,
 }

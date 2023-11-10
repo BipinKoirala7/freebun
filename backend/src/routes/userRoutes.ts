@@ -25,7 +25,7 @@ userRoutes.get('/session/user', (req: Request<SessionPassportUserT>, res: Respon
 })
 
 // get user by user_id
-userRoutes.get('/users/:user_id', async (req: Request, res: Response) => {
+userRoutes.get('/user/:user_id', async (req: Request, res: Response) => {
     const user_id = req.params.user_id
     console.log(user_id)
     try {
@@ -46,7 +46,7 @@ userRoutes.get('/users/:user_id', async (req: Request, res: Response) => {
     }
 })
 
-userRoutes.post('/users/new/user', async (req: Request, res: Response) => {
+userRoutes.post('/user/new', async (req: Request, res: Response) => {
     const body = req.body
     console.log(body)
     try {
@@ -61,7 +61,7 @@ userRoutes.post('/users/new/user', async (req: Request, res: Response) => {
 })
 
 // change the user properties
-userRoutes.patch('/users/:user_id/email', async (req: Request, res: Response) => {
+userRoutes.patch('/:user_id/email', async (req: Request, res: Response) => {
         // problem in json server but wont be a problem with mysql
     console.log(req.params)
     console.log(req.body)

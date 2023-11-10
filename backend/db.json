@@ -21,11 +21,11 @@
       "id": 2
     }
   ],
-  "game": [
+  "gameCollection": [
     {
       "id": 1,
       "game_id": "1234567890",
-      "user_id": "123456789",
+      "user_id": "15a8e45ce54274bd5055",
       "game_data": {
         "letters": "elnadc",
         "center": "h",
@@ -124,16 +124,19 @@
   ],
   "wordCollection": [
     {
-      "id":1,
       "game_id": "1234567890",
-      "wordArr": [
+      "wordList": [
         "hale",
         "haled",
         "hall",
         "hallah",
         "hallel",
-        "hance"
-      ]
+        "hance",
+        "hand",
+        "hunger",
+        "hojlund"
+      ],
+      "id": 1
     }
   ]
 }

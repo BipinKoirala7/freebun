@@ -3,7 +3,7 @@ import {  createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 const wordArrApi = createApi({
     reducerPath: 'wordArr',
     baseQuery: fetchBaseQuery({
-        baseUrl:'http://localhost:3000'
+        baseUrl:'http://localhost:4000/api/wordCollection'
     }),
     tagTypes: ['wordArr'],
     endpoints(build) {

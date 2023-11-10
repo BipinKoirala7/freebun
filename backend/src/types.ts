@@ -20,9 +20,9 @@ type SessionPassportUserT = {
   }]
 }
 
-type ServerApiResponsePropsT = {
+type ServerApiResponsePropsT<T> = {
   message: string,
-  data: Array<any> | [],
+  data: Array<T> | [],
   status: number,
   ok: boolean
 }
@@ -49,6 +49,15 @@ type GameWholeDataT = {
   IsgameFinished: boolean
 }
 // game-end
+// wordArr
+
+type wordArrT = {
+  game_id: string,
+  wordArr_id: string,
+  wordList:Array<string>
+}
+
+// end
 
 export {
   UserT,
@@ -56,5 +65,6 @@ export {
   ServerApiResponsePropsT,
   GameApiResponseT,
   GameDataT,
-  GameWholeDataT
+  GameWholeDataT,
+  wordArrT
 }

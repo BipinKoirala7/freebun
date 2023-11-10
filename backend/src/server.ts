@@ -10,6 +10,7 @@ import userRoutes from './routes/userRoutes'
 import beeRoutes from './routes/beeRoute'
 import authRoutes from './routes/authRoutes'
 import gameRoutes from './routes/gameRoutes'
+import wordCollectionRoutes from './routes/wordCollectionFromUser'
 
 connectSQL()
 require('./config/passport')
@@ -30,13 +31,16 @@ app.use(session({
         maxAge:8640000*3000
     }
 } as SessionOptions))
+
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/api', userRoutes)
+
+app.use('/api/users', userRoutes)
 app.use('/api/bee', beeRoutes)
-app.use('/auth', authRoutes)
-app.use('/api/game',gameRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/gameCollection', gameRoutes)
+app.use('/api/wordCollection',wordCollectionRoutes)
 
 
 app.listen(process.env.PORT, () => {
