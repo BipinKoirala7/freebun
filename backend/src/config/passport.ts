@@ -54,7 +54,6 @@ passport.use(new GoogleStrategy({
             const user:AxiosResponse = await axios.get(`${process.env.BACKEND_URL}/users?provider_id=${profile.id}` as string)
             const response:Array<Google.Profile> = await user.data
             if (response.length > 0) {
-                console.log(response)
                 cb(null,response)  
             }
             else {
@@ -70,12 +69,11 @@ passport.use(new GoogleStrategy({
                     email_verified:profile._json.email_verified
                 } as UserT)
                 const newUser = await res.data
-                console.log(newUser)
                 return cb(null,newUser)
             }
         }
         catch (error:any) {
-            console.log(error)
+            console.log(error)  
             cb(error)
         }
 }))

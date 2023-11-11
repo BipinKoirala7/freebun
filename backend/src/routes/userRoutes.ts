@@ -7,15 +7,19 @@ import { getResponseObject } from "../lib/util";
 const userRoutes = express.Router()
 
 userRoutes.get('/session/user', (req: Request<SessionPassportUserT>, res: Response) => {
-    console.log(req.user)
+    console.log('Request user', req.user)
+    console.log(req.session)
     if (req.user) {
+        console.log('user found')
         res.send({
             message: 'User is present in the session',
             IsUserInSession:true,
             User: req.user,
+            session:req.session
         })
     }
     else {
+        console.log('user not found')
         res.send({
             message: 'User is not present in the session',
             IsUserInSession: false,
@@ -61,7 +65,7 @@ userRoutes.post('/user/new', async (req: Request, res: Response) => {
 })
 
 // change the user properties
-userRoutes.patch('/:user_id/email', async (req: Request, res: Response) => {
+userRoutes.patch('/user/:user_id/properties', async (req: Request, res: Response) => {
         // problem in json server but wont be a problem with mysql
     console.log(req.params)
     console.log(req.body)

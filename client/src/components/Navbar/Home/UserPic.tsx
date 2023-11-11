@@ -1,21 +1,28 @@
-import bee_logo from '../../../assets/bee_logo.png'
+import bee_logo from '../../../assets/person.png'
 import { useState } from 'react'
-function UserPic() {
+import { UserPicT } from '../../../types'
+function UserPic(props:UserPicT) {
     const[IsON , setIsOn] = useState(false)
   return (
-      <>
-          <p>Welcome Bipin!</p>
+      <div className='flex gap-4 items-center text-primary'>
+          <p className=''>{props.username}!</p>
           <div className='relative'>
-              <img src={bee_logo} alt="" className="rounded-[50%]
-                 border-secondary border-[1px] w-12 aspect-square"
+              <img src={bee_logo} alt=""
+                  className="bg-transparent rounded-[50%] cursor-pointer w-12 aspect-square hover:border-[2px] hover:border-primary trnsition-class"
                 onClick={()=> setIsOn(prev => !prev)}
               />
               <div className={`absolute ${IsON ? 'flex': 'hidden'} flex-col top-full right-[50%] min-w-fit bg-secondary-background rounded-xl`}>
-                  <button className='px-8 border-b-[2px] border-secondary py-3 hover:bg-primary hover:text-primary-background rounded-t-xl'>Dashboard</button>
-                  <button className='px-8 py-3 hover:bg-primary hover:text-primary-background rounded-b-xl'>Sign Out</button>
+                  <button 
+                    className='px-8 border-b-[2px] border-secondary py-3 
+                         hover:bg-primary hover:text-primary-background rounded-t-xl'
+                         >Dashboard</button>
+                  <button 
+                    className='px-8 py-3 hover:bg-primary 
+                         hover:text-primary-background rounded-b-xl'
+                         >Sign Out</button>
               </div>
           </div>
-      </>
+      </div>
   )
 }
 

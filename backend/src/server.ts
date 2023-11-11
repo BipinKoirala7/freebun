@@ -38,7 +38,7 @@ app.use(passport.session())
 
 app.use('/api/users', userRoutes)
 app.use('/api/bee', beeRoutes)
-app.use('/api/auth', authRoutes)
+app.use('/auth', authRoutes)
 app.use('/api/gameCollection', gameRoutes)
 app.use('/api/wordCollection',wordCollectionRoutes)
 

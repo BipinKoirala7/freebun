@@ -37,8 +37,11 @@ type ReduxStoreT<T> = {
 type WholeStoreT = {
   SelectedWords: SelectedWordsStoreT,
   wordsArr: wordArrStoreT,
-  newGame: gameDataStoreT
+  newGame: gameDataStoreT,
+  userInfo: UserInfoStoreT,
 }
+type UserInfoStoreT = string
+// remember to remove UserStoreT type
 
 type wordArrStoreT = ReduxStoreT<wordT>
 
@@ -86,10 +89,12 @@ type GameData = {
 // 6 -> end
 // 7-> Session for User
 
+
+
 type SessionPassportUserT = {
   message: string,
   IsUserInSession:boolean,
-  user: [{
+  User: [{
       user_id: string,
       email: string,
       password: string,
@@ -106,14 +111,33 @@ type FetchPreviousGameArgT = {
   user_id:string
 }
 
+type UserPicT = {
+  username:string
+}
+
+// type for trk query for changing email and password of the user
+
+type RTKchangeUserPropertiesT = {
+  user_id: string,
+  property: string,
+  changed_info:string
+}
+
+type FetchUserQueryT = {
+  data: SessionPassportUserT,
+  isLoading: boolean,
+  isError:boolean
+}
+
 // for database compatibility
 type UserT = {
   user_id: string,
+  provider_id: string,
+  username: string,
+  photo:string,
   email: string,
   password: string,
   provider: string,
-  last_log_in: Date,
-  last_log_out:Date
 }
 
 type GameT = {
@@ -146,6 +170,9 @@ export type {
   GameApiResponseT,
   GameData,
   FetchPreviousGameArgT,
+  UserPicT,
+  RTKchangeUserPropertiesT,
+  FetchUserQueryT,
   UserT,
   GameT,
 }

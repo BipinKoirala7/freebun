@@ -31,7 +31,7 @@ function App() {
 
   function Root(): JSX.Element{
     return (
-      <main className='bg-primary-background font-secondary min-h-screen max-w-screen w-screen h-screen max-w-screen text-white'>
+      <main className='bg-primary-background font-secondary min-h-screen max-w-screen w-screen h-screen max-w-screen text-primary'>
           <Outlet/>
       </main>
 
