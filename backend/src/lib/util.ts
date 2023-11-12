@@ -1,6 +1,4 @@
 import crypto from 'crypto'
-import axios from 'axios'
-import { ServerApiResponsePropsT } from '../types'
 
 function generateUniqueId(length: number) {
   // userId length must be 20

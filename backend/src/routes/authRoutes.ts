@@ -5,12 +5,13 @@ dotenv.config()
 
 const authRoutes = express.Router()
 
-// authentication with credentials
-authRoutes.post('/register', passport.authenticate('local', { failureRedirect: process.env.CLIENT_DOMAIN + '/auth/register' }),
-    (req: Request, res: Response) => {
-        console.log('Request bpdy acessed',req.body)
-        res.redirect(process.env.CLIENT_DOMAIN as string)
+// registration with credentials
+authRoutes.post('/register', passport.authenticate('local-register',
+    {
+        failureRedirect: process.env.CLIENT_DOMAIN + '/',
+        successRedirect: process.env.CLIENT_DOMAIN as string
     })
+)
 
 // google authentication routes
 authRoutes.get('/google', passport.authenticate('google', { scope: ['profile','email'] }),

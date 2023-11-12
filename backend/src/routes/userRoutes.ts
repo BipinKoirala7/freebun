@@ -15,7 +15,6 @@ userRoutes.get('/session/user', (req: Request<SessionPassportUserT>, res: Respon
             message: 'User is present in the session',
             IsUserInSession:true,
             User: req.user,
-            session:req.session
         })
     }
     else {

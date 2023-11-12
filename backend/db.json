@@ -11,11 +11,11 @@
       "id": 1
     },
     {
-      "user_id": "15a8e45ce54274bd5055",
+      "user_id": "8a0b07dfc8140ebba8d5",
       "provider_id": "",
-      "email": "bipen123@gmail.com",
+      "email": "www.koiralafamily7@gmail.com",
       "password": "1234567890",
-      "username": "",
+      "username": "bipinkoirala07",
       "provider": "credentials",
       "photos": "",
       "id": 2
@@ -137,6 +137,10 @@
         "hojlund"
       ],
       "id": 1
+    },
+    {
+      "word": "",
+      "id": 2
     }
   ]
 }

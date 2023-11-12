@@ -18,7 +18,7 @@ function Register() {
     
     console.log(UserInfo)
     function handleGoogleClick() {
-        window.open('http://localhost:4000/auth/google','_same')
+        window.open('http://localhost:4000/auth/google','_self')
     }
 
     async function handleLocalClick() {
