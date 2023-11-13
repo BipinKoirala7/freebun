@@ -1,23 +1,13 @@
 import Firstbar from "./FirstBar"
 import Logobar from "./logobar"
-import { useFetchUserFromSessionQuery } from '../../../data/store';
-import { SessionPassportUserT } from "../../../types";
+import { SessionPassportUserT,HomeNavbarPropsT } from "../../../types";
 import UserPic from "./UserPic";
 
 
-function HomeNavbar() {
-  const response  = useFetchUserFromSessionQuery({})
-  console.log(response)
+function HomeNavbar(props: HomeNavbarPropsT) {
+  console.log(props)
   
-  if (response.isLoading) {
-    return <div>Loading...</div>;
-  }
-  
-  if (response.isError) {
-    return <div>Error fetching data</div>;
-  }
-  
-  const info:SessionPassportUserT = response.data
+  const info:SessionPassportUserT = props.UserInfo
   return (
     <nav
       className="flex w-[100%] justify-between bg-background-color text-black px-2 

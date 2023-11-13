@@ -2,36 +2,37 @@ import axios, { AxiosResponse } from "axios";
 import express, { Request, Response } from "express";
 
 import {  getResponseObject } from "../lib/util";
-import { GameApiResponseT, GameWholeDataT } from "../types";
+import {  GameDataT, GameWholeDataT, ServerApiResponsePropsT } from "../types";
 import { checkValidUserId } from "../middleware";
 import { generateUniqueId } from "../lib/util";
 
 const gameRoutes = express.Router();
 
 gameRoutes.get('/user/:user_id/new', async (req: Request, res: Response) => {
+    console.log('start route /user/:game_id/new', req.params)
     const userId = req.params.user_id
     try {
         const checkUserId = await checkValidUserId(userId)
         if (typeof checkUserId !== 'boolean'){
-              res
+              return res
                 .send(getResponseObject(res.statusCode,[],false,'Error occured when checking'))
         }
-        if (checkUserId) {
-            const result:AxiosResponse<Array<GameApiResponseT>> = await axios.get('http://localhost:4000/api/bee/new')
+        else if (checkUserId) {
+            const result:AxiosResponse<ServerApiResponsePropsT<GameDataT>> = await axios.get('http://localhost:4000/api/bee/new')
             const game = result.data
-            const obj:GameWholeDataT = {
-                gameId: generateUniqueId(16),
-                userId: userId,
-                IsgameFinished:false,
-                gameInfo: game[0].result
-            }
+            console.log('Game', game)
+                const obj:GameWholeDataT = {
+                    gameId: generateUniqueId(16),
+                    userId: userId,
+                    IsgameFinished:false,
+                    gameInfo: game.data[0]
+                }
             const save:AxiosResponse<Array<GameWholeDataT>> = await axios.post('http://localhost:3000/gameCollection', obj)
-            console.log(save)
-            const report = await save.data
-            console.log(report)
-             res
+            const report = save.data
+            console.log('Repoert',report)
+             return res
                 .status(save.status)
-                .send(getResponseObject(save.status,report,true,'New game is created'))
+                .send(getResponseObject(save.status,[report],true,'New game is created'))
         }
            res
             .status(res.statusCode)
@@ -43,10 +44,11 @@ gameRoutes.get('/user/:user_id/new', async (req: Request, res: Response) => {
             .status(400)
             .send(getResponseObject(400,[],false,'Something went wrong'))
     }
+        console.log('end route /user/:game_id/new', req.params)
 })
 
 gameRoutes.get('/user/:user_id/game/:game_id', async (req: Request, res: Response) => {
-    console.log(req.params)
+    console.log('start route /user/:user_id/game/:game_id', req.params)
     try {
         const IsValidUser = await checkValidUserId(req.params.user_id)
         console.log(IsValidUser)
@@ -68,9 +70,11 @@ gameRoutes.get('/user/:user_id/game/:game_id', async (req: Request, res: Respons
             .status(res.statusCode)
             .send(getResponseObject(res.statusCode,[],false,'Something went wrong'))
     }
+    console.log('end route /user/:user_id/game/:game_id', req.params)
 })
 
 gameRoutes.get('/user/:user_id', async (req: Request, res: Response) => {
+    console.log('start route /user/:user_id/', req.params)
     console.log(req.params)
     try {
         const IsValidUser = await checkValidUserId(req.params.user_id)
@@ -93,6 +97,7 @@ gameRoutes.get('/user/:user_id', async (req: Request, res: Response) => {
             .status(res.statusCode)
             .send(getResponseObject(res.statusCode,[],false,'Something went wrong'))
     }
+    console.log('start route /user/:user_id/', req.params)
 })
 
 // only for taking the object to check if the game_id provided is valid

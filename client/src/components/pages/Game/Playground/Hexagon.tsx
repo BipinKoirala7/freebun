@@ -20,7 +20,7 @@ function Hexagon(props: HexagonProps) {
     const dispatch = useDispatch()
 
     function handleClick() {
-        dispatch(addWord(props.word))
+        dispatch(addWord(props.word?.toUpperCase()))
     }
   return (
       <button className={className} onClick={() => handleClick()}>

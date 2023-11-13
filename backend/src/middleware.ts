@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { ServerApiResponsePropsT } from './types'
+import { GameWholeDataT, ServerApiResponsePropsT } from './types'
 
 async function checkValidUserId(userId: string): Promise<boolean | Error>{
   try {
@@ -37,7 +37,7 @@ async function checkWordCollectionPresence(game_id:string):Promise<Error | boole
   console.log(game_id)
   // this function is necessary to check if a wordCollection object with properties exists already
   try {
-    const result:AxiosResponse<ServerApiResponsePropsT<any>> = await axios.get(`http://localhost:3000/api/wordCollection?game_id=${game_id}`)
+    const result:AxiosResponse<ServerApiResponsePropsT<GameWholeDataT>> = await axios.get(`http://localhost:4000/api/wordCollection/game/${game_id}`)
     const data = result.data
     console.log(data)
     if (data.data.length > 0) {
@@ -46,6 +46,7 @@ async function checkWordCollectionPresence(game_id:string):Promise<Error | boole
     else return false
   }
   catch (error) {
+    console.log(error)
     return new Error('Something went wrong')
   }
 }

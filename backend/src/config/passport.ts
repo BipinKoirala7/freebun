@@ -124,7 +124,7 @@ passport.serializeUser((user:any, done) => {
     console.log('serializeUser',user)
     // check the user in database and just pass the id not the whole user object
     // console.log(user)
-    done(null, user.user_id)
+    done(null, user[0].user_id)
 })
 
 passport.deserializeUser(async (id, done) => {

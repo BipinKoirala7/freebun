@@ -43,13 +43,14 @@ type WholeStoreT = {
 type UserInfoStoreT = string
 // remember to remove UserStoreT type
 
-type wordArrStoreT = ReduxStoreT<wordT>
+type wordArrStoreT = ReduxStoreT<wordArrT>
+// remember I might have to see for the central word
 
 type SelectedWordsStoreT = {
   selected:string
 }
 
-type gameDataStoreT = ReduxStoreT<GameData>
+type gameDataStoreT = ReduxStoreT<GameWholeDataT>
 
 // 5)WordArray Object type 
 
@@ -60,31 +61,27 @@ type wordArrPropsT = {
 type wordArrT = {
   game_id: string,
   wordArr_id: string,
-  wordArr:Array<wordT>
+  wordArr:Array<string>
 }
 
 // 5-> end
 // 6) Game
 
-type GameWholeDataT = {
+export type GameDataT = {
     letters: string,
     center: string,
     words: number,
     total: number,
     wordlist:Array<string>
 }
-
-type GameApiResponseT = {
-  statusCode: string,
-  ok: boolean,
-  result:GameWholeDataT
-}
-
-type GameData = {
+  
+type GameWholeDataT = {
   gameId: string,
-  // userId:string,  needed for specifying user
-  gameInfo:GameWholeDataT
+  userId:string, 
+  gameInfo: GameDataT,
+  IsgameFinished: boolean
 }
+  
 
 // 6 -> end
 // 7-> Session for User
@@ -103,7 +100,14 @@ type SessionPassportUserT = {
   }]
 }
 
-//
+// server api type 
+type ServerApiResponsePropsT<T> = {
+  message: string,
+  data: Array<T> | [],
+  status: number,
+  ok: boolean
+}
+// end
 
 // props types for other
 type FetchPreviousGameArgT = {
@@ -113,6 +117,14 @@ type FetchPreviousGameArgT = {
 
 type UserPicT = {
   username:string
+}
+
+ export type HomeNavbarPropsT = {
+  UserInfo : SessionPassportUserT
+}
+
+export type HomePlayBtnPropsT = {
+  UserInfo: SessionPassportUserT
 }
 
 // type for trk query for changing email and password of the user
@@ -140,16 +152,6 @@ type UserT = {
   provider: string,
 }
 
-type GameT = {
-  user_id: string,
-  game_id: string,
-  game_status: string,
-  game_data: {
-    central_word: string,
-    words: string,
-    wordlists:Array<string>
-  }
-}
 
 // upto here for database compatibility
 
@@ -166,13 +168,11 @@ export type {
   wordArrT,
   WholeStoreT,
   SessionPassportUserT,
+  ServerApiResponsePropsT,
   GameWholeDataT,
-  GameApiResponseT,
-  GameData,
   FetchPreviousGameArgT,
   UserPicT,
   RTKchangeUserPropertiesT,
   FetchUserQueryT,
   UserT,
-  GameT,
 }

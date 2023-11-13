@@ -6,7 +6,7 @@ import { type CentralHexagonProp } from "../../../../types"
 function Hexagon(props: CentralHexagonProp) {
   const dispatch = useDispatch()
   function handleClick() {
-    dispatch(addWord(props.word))
+    dispatch(addWord(props.word?.toUpperCase()))
   }
   return (
       <button className="absolute" onClick={()=> handleClick()}>

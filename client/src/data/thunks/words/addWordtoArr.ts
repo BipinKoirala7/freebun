@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-const addWordToArr = createAsyncThunk('add/wordArr', async (word:string) => {
+const addWordToArr = createAsyncThunk<'add/wordCollection',{word:string,game_id:string}>('add/wordCollection', async ({word,game_id}) => {
     try {
         console.log(word)
-        const response: AxiosResponse = await axios.post('http://localhost:3000/wordCollection?game_id=1234567890/wordArr', {
+        const response: AxiosResponse = await axios.patch(`http://localhost:4000/api/wordCollection/game/${game_id}/word`, {
             word:word
         })
         const data = await response.data

@@ -15,7 +15,7 @@ function App() {
         element:<Home />
       },
       {
-        path: '/game',
+        path: 'user/:user_id/game/:game_id',
         element:<Game />
       }, 
       {

@@ -15,7 +15,7 @@ import userRoutes from './routes/userRoutes'
 import beeRoutes from './routes/beeRoute'
 import authRoutes from './routes/authRoutes'
 import gameRoutes from './routes/gameRoutes'
-import wordCollectionRoutes from './routes/wordCollectionFromUser'
+import wordCollectionRoutes from './routes/wordCollectionRoutes'
 
 // connectSQL()
 require('./config/passport')
@@ -42,7 +42,7 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     cookie: {
-        maxAge:8640000*3000
+        maxAge:8640000*300000
     }
 } as SessionOptions))
 
