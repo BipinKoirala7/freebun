@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 
 import {  GameWholeDataT, HomePlayBtnPropsT } from "../../../types"
 import { AppDispatch, fetchNewGame } from "../../../data/store"
+import createWordsCollection from "../../../data/thunks/words/createWordsCollection"
 
 function Play(props: HomePlayBtnPropsT) {
   const dispatch = useDispatch<AppDispatch>()
@@ -17,6 +18,7 @@ function Play(props: HomePlayBtnPropsT) {
         const data: GameWholeDataT[] | undefined = response.payload
         console.log(typeof data)
         if (typeof data !== 'undefined') {
+          await dispatch(createWordsCollection(data[0].gameId as string))
           navigate(`user/${User[0].user_id}/game/${data[0].gameId}`)
         }
         else {

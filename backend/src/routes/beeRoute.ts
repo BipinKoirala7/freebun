@@ -10,13 +10,14 @@ bunRoutes.get('/new', async (req: Request, res: Response) => {
         const result:AxiosResponse<GameDataT> = await axios.get('https://freebee.fun/cgi-bin/random')
         const data = result.data
         console.log(data) 
-        res.status(200).send(getResponseObject(result.status,[data],true,result.statusText))
+        res.status(200).send(getResponseObject(result.status,[data],true,result.statusText,false))
     }
     catch (error) {
-        res.status(400).send(getResponseObject(res.statusCode,[],false,'Something went wrong'))
+        res.status(400).send(getResponseObject(res.statusCode,[],false,'Something went wrong',true))
     }
 })
 
+// normally this route is not used so not maintained or will be maintained in future
 bunRoutes.get('/today',async (req:Request,res: Response)=>{
     try{
         const result:AxiosResponse = await axios.get('https://freebee.fun/cgi-bin/today')

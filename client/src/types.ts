@@ -14,8 +14,7 @@ type HexagonProps = {
 // 2 Progress object type
 
 type ProgressT = {
-    height: string,
-    progress: string,
+  userWordArr:Array<string>
 }
 
 // 2 -> end
@@ -55,13 +54,13 @@ type gameDataStoreT = ReduxStoreT<GameWholeDataT>
 // 5)WordArray Object type 
 
 type wordArrPropsT = {
-  wordArr : Array<string>
+  wordArr : Array<wordArrT>
 }
 
 type wordArrT = {
   game_id: string,
   wordArr_id: string,
-  wordArr:Array<string>
+  wordList:Array<string>
 }
 
 // 5-> end
@@ -116,7 +115,8 @@ type FetchPreviousGameArgT = {
 }
 
 type UserPicT = {
-  username:string
+  username: string,
+  user_id:string
 }
 
  export type HomeNavbarPropsT = {

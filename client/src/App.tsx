@@ -4,6 +4,7 @@ import Game from './components/pages/Game/game'
 import Home from './components/pages/Home/home'
 import Register from './components/pages/auth/log/register'
 import SignIn from './components/pages/auth/log/signIn'
+import Dashboard from './components/pages/Dashboard/Dashboard'
 
 function App() {
   const router = createBrowserRouter([{
@@ -25,6 +26,9 @@ function App() {
       {
         path: '/auth/sign-in',
         element:<SignIn />
+      }, {
+        path: '/user/:user_id/dashboard',
+        element:<Dashboard />
       }
     ]
   }])

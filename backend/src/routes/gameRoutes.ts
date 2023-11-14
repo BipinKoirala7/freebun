@@ -3,123 +3,113 @@ import express, { Request, Response } from "express";
 
 import {  getResponseObject } from "../lib/util";
 import {  GameDataT, GameWholeDataT, ServerApiResponsePropsT } from "../types";
-import { checkValidUserId } from "../middleware";
+import { IsUserLogedIn, checkValidGameId } from "../middleware";
 import { generateUniqueId } from "../lib/util";
 
 const gameRoutes = express.Router();
 
-gameRoutes.get('/user/:user_id/new', async (req: Request, res: Response) => {
-    console.log('start route /user/:game_id/new', req.params)
-    const userId = req.params.user_id
+gameRoutes.get('/user/:user_id/new', IsUserLogedIn, async (req: Request, res: Response) => {
+    const user_id = req.params.user_id
     try {
-        const checkUserId = await checkValidUserId(userId)
-        if (typeof checkUserId !== 'boolean'){
-              return res
-                .send(getResponseObject(res.statusCode,[],false,'Error occured when checking'))
-        }
-        else if (checkUserId) {
-            const result:AxiosResponse<ServerApiResponsePropsT<GameDataT>> = await axios.get('http://localhost:4000/api/bee/new')
-            const game = result.data
-            console.log('Game', game)
-                const obj:GameWholeDataT = {
-                    gameId: generateUniqueId(16),
-                    userId: userId,
-                    IsgameFinished:false,
-                    gameInfo: game.data[0]
-                }
-            const save:AxiosResponse<Array<GameWholeDataT>> = await axios.post('http://localhost:3000/gameCollection', obj)
-            const report = save.data
-            console.log('Repoert',report)
-             return res
+        const result:AxiosResponse<ServerApiResponsePropsT<GameDataT>> = await axios.get('http://localhost:4000/api/bee/new')
+        const game = result.data
+        console.log('Game', game)
+            const obj:GameWholeDataT = {
+                gameId: generateUniqueId(16),
+                userId: user_id,
+                IsgameFinished:false,
+                gameInfo: game.data[0]
+            }
+        const save:AxiosResponse<Array<GameWholeDataT>> = await axios.post('http://localhost:3000/gameCollection', obj)
+        const report = save.data
+        console.log('Report', report)
+        if (save.status === 201) {
+            return res
                 .status(save.status)
-                .send(getResponseObject(save.status,[report],true,'New game is created'))
+                .send(getResponseObject(save.status, [report], true, 'New game is created', false))
         }
-           res
-            .status(res.statusCode)
-            .send(getResponseObject(res.statusCode,[],false,'User not found'))
+        else {
+            return res
+                .status(save.status)
+                .send(getResponseObject(save.status, [report], false, 'New game is created', false))
+        }
     }
     catch (error) {
          console.log(error)
          res
             .status(400)
-            .send(getResponseObject(400,[],false,'Something went wrong'))
+            .send(getResponseObject(400,[],false,'Something went wrong',true))
     }
         console.log('end route /user/:game_id/new', req.params)
 })
 
-gameRoutes.get('/user/:user_id/game/:game_id', async (req: Request, res: Response) => {
+gameRoutes.get('/user/:user_id/game/:game_id', IsUserLogedIn,checkValidGameId, async (req: Request, res: Response) => {
     console.log('start route /user/:user_id/game/:game_id', req.params)
     try {
-        const IsValidUser = await checkValidUserId(req.params.user_id)
-        console.log(IsValidUser)
-        if (IsValidUser) {
-            const result:AxiosResponse<Array<GameWholeDataT>> = await axios.get(`http://localhost:3000/gameCollection?game_id=${req.params.game_id}&user_id=${req.params.user_id}`)
-            const data = await result.data  
-            res
-                .status(result.status)
-                .send(getResponseObject(result.status,data,true,'Data is retrived'))
+        const result:AxiosResponse<Array<GameWholeDataT>> = await axios.get(`http://localhost:3000/gameCollection?game_id=${req.params.game_id}&user_id=${req.params.user_id}`)
+        const data = result.data  
+        if (data.length > 0) {
+            return res
+                    .status(result.status)
+                    .send(getResponseObject(result.status,data,true,'Data is retrived',false))
         }
-        else {
-            res
-                .status(res.statusCode)
-                .send(getResponseObject(res.statusCode,[],false,'User is not verified'))
-        }
+            return res
+                    .status(result.status)
+                    .send(getResponseObject(result.status,data,false,'Data is retrived',false))
     }
     catch (error) {
-        res
-            .status(res.statusCode)
-            .send(getResponseObject(res.statusCode,[],false,'Something went wrong'))
+        console.log(error)
+        return res
+                .status(res.statusCode)
+                .send(getResponseObject(res.statusCode,[],false,'Something went wrong',true))
     }
-    console.log('end route /user/:user_id/game/:game_id', req.params)
 })
 
-gameRoutes.get('/user/:user_id', async (req: Request, res: Response) => {
+gameRoutes.get('/user/:user_id',IsUserLogedIn, async (req: Request, res: Response) => {
     console.log('start route /user/:user_id/', req.params)
+    const user_id = req.params.user_id
     console.log(req.params)
     try {
-        const IsValidUser = await checkValidUserId(req.params.user_id)
-        if (IsValidUser) {
-            const result:AxiosResponse<Array<GameWholeDataT>> = await axios.get(`http://localhost:3000/gameCollection`)
-            const data = await result.data  
-            console.log(data)
-            res
+            const result:AxiosResponse<Array<GameWholeDataT>> = await axios.get(`http://localhost:3000/gameCollection?user_id=${user_id}`)
+            const data = result.data  
+        console.log(data)
+        if (result.status === 200) {
+            return res
                 .status(result.status)
-                .send(getResponseObject(result.status,data,true,'Data is retrived'))
+                .send(getResponseObject(result.status,data,true,'Data is retrived',false))
         }
-        else {
-            res
-                .status(res.statusCode)
-                .send(getResponseObject(res.statusCode,[],false,'User is not verified'))
-        }
+            return res
+                .status(result.status)
+                .send(getResponseObject(result.status,data,false,'Data is retrived',false))
     }
     catch (error) {
         res
             .status(res.statusCode)
-            .send(getResponseObject(res.statusCode,[],false,'Something went wrong'))
+            .send(getResponseObject(res.statusCode,[],false,'Something went wrong',true))
     }
     console.log('start route /user/:user_id/', req.params)
 })
 
 // only for taking the object to check if the game_id provided is valid
-gameRoutes.get('/game/:game_id', async (req: Request, res: Response) => {
+gameRoutes.get('/game/:game_id',async (req: Request, res: Response) => {
     try {
         const result:AxiosResponse<Array<GameWholeDataT>> = await axios.get(`http://localhost:3000/gameCollection?game_id=${req.params.game_id}`)
         const data = result.data
         if (data.length > 0) {
                 res
                     .status(result.status)
-                    .send(getResponseObject(result.status, data, true, result.statusText))
+                    .send(getResponseObject(result.status, data, true, result.statusText,false))
         }
         else {
                 res
                     .status(result.status)
-                    .send(getResponseObject(result.status, data, false, result.statusText))
+                    .send(getResponseObject(result.status, data, false, result.statusText,false))
         }
     }
     catch (error) {
             res
                 .status(404)
-                .send(getResponseObject(404, [], false, ''))
+                .send(getResponseObject(404, [], false, '',true))
     }
 })
 

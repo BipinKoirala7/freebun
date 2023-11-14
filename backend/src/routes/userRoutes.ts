@@ -1,8 +1,9 @@
 import express, { Response, Request } from "express";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
-import { SessionPassportUserT } from "../types";
+import { SessionPassportUserT,UserT } from "../types";
 import { getResponseObject } from "../lib/util";
+import { IsUserLogedIn } from "../middleware";
 
 const userRoutes = express.Router()
 
@@ -28,24 +29,24 @@ userRoutes.get('/session/user', (req: Request<SessionPassportUserT>, res: Respon
 })
 
 // get user by user_id
-userRoutes.get('/user/:user_id', async (req: Request, res: Response) => {
+userRoutes.get('/user/:user_id',IsUserLogedIn, async (req: Request, res: Response) => {
     const user_id = req.params.user_id
     console.log(user_id)
     try {
-        const result = await axios.get(`http://localhost:3000/users?user_id=${user_id}`)
-        const data = await result.data
+        const result:AxiosResponse<Array<UserT>> = await axios.get(`http://localhost:3000/users?user_id=${user_id}`)
+        const data =  result.data
         if (data.length > 0) {
-            res.status(200).send(
-                getResponseObject(res.statusCode,data,true,'Request Accepted with user')
+            return res.status(200).send(
+                getResponseObject(res.statusCode,data,true,'Request Accepted with user',false)
             )
         }
         else {
-            res.status(200).send(getResponseObject( res.statusCode, data, false, 'There is no user with the given information' )
+            return res.status(200).send(getResponseObject( res.statusCode, data, false, 'There is no user with the given information' ,false)
             )
         }
     }
     catch (error:any) {
-        res.status(400).send(getResponseObject(  res.statusCode, [], true , 'Something went wrong'))
+        return res.status(400).send(getResponseObject(  res.statusCode, [], false , 'Something went wrong',true))
     }
 })
 
@@ -56,10 +57,10 @@ userRoutes.post('/user/new', async (req: Request, res: Response) => {
         const result = await axios.post('http://localhost:3000/users',body)
         const data = await result.data
         console.log(data)
-        res.status(res.statusCode).send(getResponseObject(res.statusCode,data,true,'User created Sucessfully'))
+        res.status(res.statusCode).send(getResponseObject(res.statusCode,data,true,'User created Sucessfully',true))
     }
     catch (error) {
-        res.status(res.statusCode).send(getResponseObject(res.statusCode,[],false,'Something went wrong'))
+        res.status(res.statusCode).send(getResponseObject(res.statusCode,[],false,'Something went wrong',true))
     }
 })
 
@@ -72,10 +73,10 @@ userRoutes.patch('/user/:user_id/properties', async (req: Request, res: Response
         const result = await axios.patch(`http://localhost:3000/users?user_id=${req.params.user_id}`, req.body)
         const data = await result.data
         console.log(data)
-        res.status(res.statusCode).send(getResponseObject(res.statusCode,data,true,'User email changed'))
+        res.status(res.statusCode).send(getResponseObject(res.statusCode,data,true,'User email changed',true))
     }
     catch (error) {
-        res.status(res.statusCode).send(getResponseObject(res.statusCode,[],false,'Something went wrong'))
+        res.status(res.statusCode).send(getResponseObject(res.statusCode,[],false,'Something went wrong',true))
     }
 })
 

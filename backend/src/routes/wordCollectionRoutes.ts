@@ -3,12 +3,12 @@ import axios, { AxiosResponse } from 'axios'
 
 import { generateUniqueId, getResponseObject } from '../lib/util'
 import { ServerApiResponsePropsT, wordArrT } from '../types'
-import { checkValidGameId, checkWordCollectionPresence } from '../middleware'
+import { IsUserLogedIn, checkValidGameId, checkWordCollectionPresence } from '../middleware'
 
 const wordCollectionRoutes = express.Router()
 
 // get routes for word collection
-wordCollectionRoutes.get('/game/:game_id', async (req: Request, res: Response) => {
+wordCollectionRoutes.get('/game/:game_id',IsUserLogedIn,checkValidGameId,checkWordCollectionPresence, async (req: Request, res: Response) => {
     console.log('start route /game/:game_id', req.params)
     const gameId = req.params.game_id
     try {
@@ -18,39 +18,27 @@ wordCollectionRoutes.get('/game/:game_id', async (req: Request, res: Response) =
         if (data.length > 0) {
              res
                 .status(result.status)
-                .send(getResponseObject(result.status,data,true,result.statusText))
+                .send(getResponseObject(result.status,data,true,result.statusText,false))
         }
         else {
              res
                 .status(result.status)
-                .send(getResponseObject(result.status,[],false,'There is no info about the game'))
+                .send(getResponseObject(result.status,[],false,'There is no info about the game',false))
         }
     }
     catch (error) {
         res
             .status(404)
-            .send(getResponseObject(404,[],false,'Something went wrong'))
+            .send(getResponseObject(404,[],false,'Something went wrong',true))
     }
     console.log('end route /game/:game_id')
 })
 
 // post request for wordCollection
-wordCollectionRoutes.post('/game/:game_id/new', async (req: Request, res: Response) => {
+wordCollectionRoutes.post('/game/:game_id/new',IsUserLogedIn,checkValidGameId,checkWordCollectionPresence, async (req: Request, res: Response) => {
     console.log('start route /game/:game_id/new', req.params)
     const game_id = req.params.game_id
     try {
-        const isValidGameId = await checkValidGameId(game_id)
-        const isThereAlreadyWordCollection = await checkWordCollectionPresence(game_id)
-        console.log('isValidGameId',  isValidGameId)
-        console.log('checkWordCollectionPresence',  isThereAlreadyWordCollection)
-        if ( !(typeof isThereAlreadyWordCollection == 'boolean')) {
-            console.log('non boolean response')
-             res
-                .status(res.statusCode)
-                .send(getResponseObject(res.statusCode,[],false,'There is no game related to the given information'))
-        }
-        else if (isValidGameId && !isThereAlreadyWordCollection) {
-            console.log('expected return')
             const wordObj:wordArrT = {
                 game_id: game_id,
                 wordArr_id: generateUniqueId(10),
@@ -61,38 +49,25 @@ wordCollectionRoutes.post('/game/:game_id/new', async (req: Request, res: Respon
             console.log('wordArr',wordArr)
             res
                 .status(result.status)
-                .send(getResponseObject(result.status,[wordArr],true,result.statusText))
-        }
-        else {
+                .send(getResponseObject(result.status,[wordArr],true,result.statusText,true))
             console.log('unwanted return')
-            res
-                .status(res.statusCode)
-                .send(getResponseObject(res.statusCode,[],true,'Information is wrong or their is already a collection established'))
-        }
+
     }
     catch (error: any) {
         console.log(error) 
         res
             .status(res.statusCode)
-            .send(getResponseObject(res.statusCode,[],false,error.message))
+            .send(getResponseObject(res.statusCode,[],false,error.message,true))
     }
     console.log('end route /game/:game_id/new')
 })
 
-wordCollectionRoutes.patch('/game/:game_id/word', async (req: Request, res: Response) => {
+wordCollectionRoutes.patch('/game/:game_id/word',checkValidGameId, async (req: Request, res: Response) => {
     console.log('start route /game/:game_id/word', req.params,req.body)
-    // nested routing is not supported without custom routes and I don't see any prospect in learning cutom 
+    // nested routing is not supported without custom routes and I don't see any prospect in learning cutom
     // routes so I will bend the way with get filter push and post
+    try{
     const gameId = req.params.game_id
-    try {
-        const isGameIdvlid = await checkValidGameId(gameId)
-        if (typeof isGameIdvlid !== 'boolean') {
-            console.log('types comes as error or non boolean')
-            res
-                .status(200)
-                .send(getResponseObject(200, [], false, 'the given information is wrong'))
-        }
-        else if (isGameIdvlid) {
             // body the word that is to pushed in the wordlist array
             const body = req.body
             // body-> end
@@ -113,21 +88,15 @@ wordCollectionRoutes.patch('/game/:game_id/word', async (req: Request, res: Resp
             const result: AxiosResponse<Array<wordArrT>> = await axios.put(`http://localhost:3000/wordCollection/${wordInfo[0].id}`,updatedArray)
             const data = result.data
             console.log(data)
-            res
+            return res
                 .status(result.status)
-                .send(getResponseObject(result.status,data,true,result.statusText))
-        }
-        else {
-            res
-                .status(res.statusCode)
-                .send(getResponseObject(res.statusCode,[],false,'Not found'))
-        }
+                .send(getResponseObject(result.status,data,true,result.statusText,false))
     }
     catch (error) {
         console.log(error)
         res
             .status(404)
-            .send(getResponseObject(404,[error],false,'Something went wrong'))
+            .send(getResponseObject(404,[],false,'Something went wrong',true))
     }
 console.log('end route /game/:game_id/word')
 })

@@ -8,8 +8,8 @@ const addWordToArr = createAsyncThunk<'add/wordCollection',{word:string,game_id:
             word:word
         })
         const data = await response.data
-        console.log(data)
-        return data
+        console.log(data.data)
+        return data.data
     }
     catch (err: unknown) {
         console.log(err)

@@ -14,7 +14,7 @@ function HomeNavbar(props: HomeNavbarPropsT) {
         lg:px-4 items-center
           ">
           <Logobar />
-      {info.IsUserInSession ? (<UserPic username={ info.User[0].username as string } /> ): (<Firstbar />) }
+      {info.IsUserInSession ? (<UserPic user_id={info.User[0].user_id as string} username={ info.User[0].username as string } /> ): (<Firstbar />) }
     </nav>
   )
 }

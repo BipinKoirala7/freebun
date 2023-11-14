@@ -11,20 +11,15 @@ type UserT = {
 type SessionPassportUserT = {
   message: string,
   IsUserInSession:boolean,
-  user: [{
-      user_id: string,
-      email: string,
-      password: string,
-      provider_id: string,
-      username:string
-  }]
+  user:Array<UserT>
 }
 
 type ServerApiResponsePropsT<T> = {
   message: string,
   data: Array<T> | [],
   status: number,
-  ok: boolean
+  ok: boolean,
+  error:boolean
 }
 
 // game type properties

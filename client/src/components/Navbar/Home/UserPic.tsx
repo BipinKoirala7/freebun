@@ -1,7 +1,9 @@
 import bee_logo from '../../../assets/person.png'
 import { useState } from 'react'
 import { UserPicT } from '../../../types'
-function UserPic(props:UserPicT) {
+
+import { Link } from 'react-router-dom'
+function UserPic(props: UserPicT) {
     const[IsON , setIsOn] = useState(false)
   return (
       <div className='flex gap-4 items-center text-primary'>
@@ -12,10 +14,10 @@ function UserPic(props:UserPicT) {
                 onClick={()=> setIsOn(prev => !prev)}
               />
               <div className={`absolute ${IsON ? 'flex': 'hidden'} flex-col top-full right-[50%] min-w-fit bg-secondary-background rounded-xl`}>
-                  <button 
+                  <Link  to={`/user/${props.user_id}/dashboard`}
                     className='px-8 border-b-[2px] border-secondary py-3 
                          hover:bg-primary hover:text-primary-background rounded-t-xl'
-                         >Dashboard</button>
+                         >Dashboard</Link>
                   <button 
                     className='px-8 py-3 hover:bg-primary 
                          hover:text-primary-background rounded-b-xl'

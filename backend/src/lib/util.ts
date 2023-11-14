@@ -11,12 +11,18 @@ function generateUniqueId(length: number) {
   return code
 }
 
-function getResponseObject(status:number,data:Array<any>|[] | {},ok:boolean,message:string) {
+function getResponseObject(
+  status: number,
+  data: Array<any> | [],
+  ok: boolean,
+  message: string, error: boolean)
+{
   const obj = {
     message: message,
     status:status,
     data:data,
-    ok:ok
+    ok: ok,
+    error:error
   }
   return obj
 }
