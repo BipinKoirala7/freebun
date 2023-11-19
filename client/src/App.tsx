@@ -5,6 +5,7 @@ import Home from './components/pages/Home/home'
 import Register from './components/pages/auth/log/register'
 import SignIn from './components/pages/auth/log/signIn'
 import Dashboard from './components/pages/Dashboard/Dashboard'
+import Notification from './components/pages/Notification/Notification'
 
 function App() {
   const router = createBrowserRouter([{
@@ -35,8 +36,9 @@ function App() {
 
   function Root(): JSX.Element{
     return (
-      <main className='bg-primary-background font-secondary min-h-screen max-w-screen w-screen h-screen max-w-screen text-primary'>
-          <Outlet/>
+      <main className=' bg-primary-background font-secondary min-h-screen max-w-screen w-screen h-screen max-w-screen text-primary'>
+        <Notification />
+        <Outlet />
       </main>
 
     )

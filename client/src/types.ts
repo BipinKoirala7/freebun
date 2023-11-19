@@ -33,11 +33,19 @@ type ReduxStoreT<T> = {
   isError:null
 }
 
+type NotificationStoreT = {
+  message: string,
+  isError: boolean,
+  isSucess: boolean,
+  isNeutral:boolean
+}
+
 type WholeStoreT = {
   SelectedWords: SelectedWordsStoreT,
   wordsArr: wordArrStoreT,
   newGame: gameDataStoreT,
   userInfo: UserInfoStoreT,
+  notification: NotificationStoreT
 }
 type UserInfoStoreT = string
 // remember to remove UserStoreT type
@@ -154,6 +162,12 @@ type UserT = {
 
 
 // upto here for database compatibility
+// rtk
+type NotificationPropsT = {
+  type: string,
+  message:string
+}
+
 
 export type {
   CentralHexagonProp,
@@ -164,6 +178,7 @@ export type {
   wordArrStoreT,
   SelectedWordsStoreT,
   gameDataStoreT,
+  NotificationStoreT,
   wordArrPropsT,
   wordArrT,
   WholeStoreT,
@@ -175,4 +190,5 @@ export type {
   RTKchangeUserPropertiesT,
   FetchUserQueryT,
   UserT,
+  NotificationPropsT
 }

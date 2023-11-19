@@ -1,21 +1,33 @@
 import { useDispatch } from "react-redux"
 import { SlRefresh } from 'react-icons/sl'
-import { type AppDispatch } from "../../../../data/store"
+import { changeMessage, type AppDispatch } from "../../../../data/store"
 
 import { removeWord } from "../../../../data/store"
 import { clearWords } from "../../../../data/store"
 import { addWordToArr } from '../../../../data/store'
 
-function GameOptions(props:{currentWord:string,game_id:string}) {
-    const dispatch = useDispatch<AppDispatch>()
+function GameOptions(props:{currentWord:string,game_id:string,centerWord:string}) {
+  console.log(props)  
+  const dispatch = useDispatch<AppDispatch>()
 
     function handleDelete() {
         dispatch(removeWord())
   }
   
   function HandleEnter() {
-    dispatch(addWordToArr({word:props.currentWord,game_id:props.game_id}))
-    dispatch(clearWords())
+    if (props.currentWord.split('').length <= 3) {
+      console.log('word length must be greater than 3 characters')
+      dispatch(changeMessage({ type: 'error', message: 'Words must be at least 3 characters' }))
+    }
+    else if (props.currentWord.split('').includes(props.centerWord.toUpperCase())) {
+      console.log('word must contain the center word')
+      dispatch(changeMessage({ type: 'error', message: `Center word ${props.centerWord.toUpperCase()}  must be in the word` }))
+    }
+    else {
+      console.log('word follow the required condition')
+      dispatch(addWordToArr({word:props.currentWord,game_id:props.game_id}))
+      dispatch(clearWords())
+    }
   }
 
   return (

@@ -20,8 +20,8 @@ export default function Game() {
   useEffect(() => {
     console.log('use effect run')
     async function fetchGameData() {
-      await dispatch(fetchWordArr(params.game_id as string))
       await dispatch(fetchPreviousGame({ user_id: params.user_id as string,game_id: params.game_id as string}))
+      await dispatch(fetchWordArr(params.game_id as string))
     }
     fetchGameData()
   },[])
@@ -29,6 +29,11 @@ export default function Game() {
   if (data.isError) {
     return (
       <div>Something went wrong that we were not able to get new game</div>
+    )
+  }
+  else if (data.data.length === 0) {
+    return (
+      <div>Something went wrong</div>
     )
   }
 

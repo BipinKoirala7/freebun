@@ -31,7 +31,7 @@ function Playground(props: { gameData: GameWholeDataT[] | [] }) {
         <Hexagon place='right' word={letters[5]} />
               
       </div>
-      <GameOptions currentWord={data.selected} game_id={props.gameData.length > 0 ? props.gameData[0].gameId : ''} />
+      <GameOptions currentWord={data.selected} centerWord={props.gameData[0].gameInfo.center} game_id={props.gameData.length > 0 ? props.gameData[0].gameId : ''} />
     </div>
     )
   }

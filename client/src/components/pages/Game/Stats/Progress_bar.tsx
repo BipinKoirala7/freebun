@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 function Progress_bar(props: ProgressT) {
   console.log(props)
   const { data }: gameDataStoreT = useSelector((state: WholeStoreT) => state.newGame)
+  console.log(data)
   
   function getProgress() {
     const userWordListLength = props.userWordArr.length
