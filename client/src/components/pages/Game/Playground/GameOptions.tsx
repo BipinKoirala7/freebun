@@ -1,10 +1,13 @@
 import { useDispatch } from "react-redux"
 import { SlRefresh } from 'react-icons/sl'
+import { v4 as uuidv4 } from 'uuid';
+
 import { changeMessage, type AppDispatch } from "../../../../data/store"
 
 import { removeWord } from "../../../../data/store"
 import { clearWords } from "../../../../data/store"
 import { addWordToArr } from '../../../../data/store'
+import { capitalizeWord } from "../../../../lib/util";
 
 function GameOptions(props:{currentWord:string,game_id:string,centerWord:string}) {
   console.log(props)  
@@ -17,15 +20,15 @@ function GameOptions(props:{currentWord:string,game_id:string,centerWord:string}
   function HandleEnter() {
     if (props.currentWord.split('').length <= 3) {
       console.log('word length must be greater than 3 characters')
-      dispatch(changeMessage({ type: 'error', message: 'Words must be at least 3 characters' }))
+      dispatch(changeMessage({ type: 'error', messageObj:{message: 'Words must be at least 3 characters',id:uuidv4()} }))
     }
-    else if (props.currentWord.split('').includes(props.centerWord.toUpperCase())) {
+    else if (!props.currentWord.split('').includes(props.centerWord.toUpperCase())) {
       console.log('word must contain the center word')
-      dispatch(changeMessage({ type: 'error', message: `Center word ${props.centerWord.toUpperCase()}  must be in the word` }))
+      dispatch(changeMessage({ type: 'error', messageObj: {message:`Center word ${props.centerWord.toUpperCase()}  must be in the word` ,id:uuidv4()}}))
     }
     else {
       console.log('word follow the required condition')
-      dispatch(addWordToArr({word:props.currentWord,game_id:props.game_id}))
+      dispatch(addWordToArr({word:capitalizeWord(props.currentWord),game_id:props.game_id}))
       dispatch(clearWords())
     }
   }

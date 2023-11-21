@@ -1,19 +1,44 @@
-import { useParams } from "react-router-dom"
+import { Outlet } from "react-router-dom"
+import { useFetchUserFromSessionQuery } from "../../../data/store"
+import { SessionPassportUserT } from "../../../types"
+import DashNavbar from "./DashNavbar"
 
 function Dashboard() {
-    const data = useParams()
-    console.log(data)
-  return (
-    <main className="flex w-[100%] h-[100%] p-2 gap-2 items-center">
-      <div className="h-[100%] shrink-[4] grow border-[1px] border-r-0 rounded-l-3xl p-4 ">
-        <div className="">Dashboard Navbar</div>
-      </div>
-      <hr className="border-[1px] border-secondary h-[90%]"/>
-      <div className="h-[100%] border-[1px] shrink grow-[4] border-l-0 rounded-r-3xl">
-        All the user related information is shown here
-      </div>
-    </main>
-  )
+  const data = useFetchUserFromSessionQuery({})
+  console.log(data)
+  const User: SessionPassportUserT = data.data
+  
+   if (data.isLoading) {
+    return (
+      <div>Loading</div>
+    )
+  }
+  else if (data.isError) {
+    return (
+      <div>Something went wrong</div>
+    )
+  }
+  else if (!User.IsUserInSession) {
+    window.open('http://localhost:5173/auth/sign-in')
+    return
+  }
+
+  else if (User.User.length !== 1) {
+    return (
+      <div>Something wrong with the cookies , Please Sign In again!</div>
+    )
+  }
+
+
+  else {
+    return (
+      <main className="grid grid-cols-dashboard-grid w-[100%] h-[100%] p-2 gap-2 items-center">
+        <DashNavbar user={User.User[0]}/>
+        <Outlet />
+      </main>
+    )
+  }
+  
 }
 
 export default Dashboard

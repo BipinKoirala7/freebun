@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import express, { Request, Response } from "express";
 
-import {  getResponseObject } from "../lib/util";
+import {  getObjectByid, getResponseObject } from "../lib/util";
 import {  GameDataT, GameWholeDataT, ServerApiResponsePropsT } from "../types";
 import { IsUserLogedIn, checkValidGameId } from "../middleware";
 import { generateUniqueId } from "../lib/util";
@@ -46,8 +46,9 @@ gameRoutes.get('/user/:user_id/new', IsUserLogedIn, async (req: Request, res: Re
 gameRoutes.get('/user/:user_id/game/:game_id', IsUserLogedIn,checkValidGameId, async (req: Request, res: Response) => {
     console.log('start route /user/:user_id/game/:game_id', req.params)
     try {
-        const result:AxiosResponse<Array<GameWholeDataT>> = await axios.get(`http://localhost:3000/gameCollection?game_id=${req.params.game_id}&user_id=${req.params.user_id}`)
-        const data = result.data  
+        const result:AxiosResponse<Array<GameWholeDataT>> = await axios.get(`http://localhost:3000/gameCollection?game_id=${req.params.game_id}`)
+        const data = getObjectByid(result.data,req.params.game_id,'gameId')  
+        console.log('data from both user id and game id ',data)
         if (data.length > 0) {
             return res
                     .status(result.status)
@@ -55,7 +56,7 @@ gameRoutes.get('/user/:user_id/game/:game_id', IsUserLogedIn,checkValidGameId, a
         }
             return res
                     .status(result.status)
-                    .send(getResponseObject(result.status,data,false,'Data is retrived',false))
+                    .send(getResponseObject(result.status,[],false,'Data is retrived',false))
     }
     catch (error) {
         console.log(error)

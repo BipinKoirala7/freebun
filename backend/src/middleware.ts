@@ -23,7 +23,6 @@ const checkValidGameId = async (req: Request, res: Response, next: NextFunction)
   try {
     const response = await axios.get('http://localhost:3000/gameCollection?game_id=' + game_id)
     const game: Array<GameWholeDataT> = await response.data
-    console.log(game)
       if (game.length > 0) {
       return next()
       }
@@ -39,16 +38,16 @@ const checkValidGameId = async (req: Request, res: Response, next: NextFunction)
 }
 
 const checkWordCollectionPresence = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('word collection check')
+  console.log('word collection presence check')
   const { game_id } = req.params
   console.log(game_id)
   try {
-    const result:AxiosResponse<ServerApiResponsePropsT<GameWholeDataT>> = await axios.get(`http://localhost:3000/wordCollection?game_id=${game_id}`)
+    const result:AxiosResponse<Array<GameWholeDataT>> = await axios.get(`http://localhost:3000/wordCollection?game_id=${game_id}`)
     const data = result.data
     console.log(data)
-    if (data.ok) {
+    if (data.length  > 0) {
       console.log('valid word collection so false')
-      return res.send(403).send(getResponseObject(403,[],false,'There is already an word Collection in the database on the given credentials',true))
+      return res.status(403).send(getResponseObject(403,[],false,'There is already an word Collection in the database on the given credentials',true))
     }
     else next()
   }
@@ -58,4 +57,26 @@ const checkWordCollectionPresence = async (req: Request, res: Response, next: Ne
   }
 }
 
-export { checkValidGameId, checkWordCollectionPresence, IsUserLogedIn}
+const checkWordCollectionId= async (req: Request, res: Response, next: NextFunction) => {
+  console.log('word collection validity check')
+  const { game_id } = req.params
+  console.log(game_id)
+  try {
+    const result:AxiosResponse<Array<GameWholeDataT>> = await axios.get(`http://localhost:3000/wordCollection?game_id=${game_id}`)
+    const data = result.data
+    console.log(data)
+    if (data.length  > 0) {
+      next()
+    }
+    else {
+      console.log('valid word collection so false')
+      return res.status(403).send(getResponseObject(403,[],false,'There is already an word Collection in the database on the given credentials',true))
+    }
+  }
+  catch (error) {
+    console.log(error)
+    res.status(404).send(getResponseObject(404,[],false,'Something went wrong',true))
+  }
+}
+
+export { checkValidGameId, checkWordCollectionPresence, IsUserLogedIn,checkWordCollectionId}

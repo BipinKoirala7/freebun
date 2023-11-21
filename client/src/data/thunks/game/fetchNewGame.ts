@@ -8,7 +8,7 @@ const fetchNewGame = createAsyncThunk('fetch/new_game',async(user_id:string) => 
         const response: AxiosResponse<ServerApiResponsePropsT<GameWholeDataT>> = await axios.get(`http://localhost:4000/api/gameCollection/user/${user_id}/new`)
         const data = response.data.data
         console.log(data)
-        return data
+        return data[0]
     }
     catch (error) {
         console.log(error)

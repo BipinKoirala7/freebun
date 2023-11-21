@@ -1,5 +1,10 @@
 import crypto from 'crypto'
 
+function getObjectByid(Array: Array<any>, id:string,identifierName:string) {
+  const givenArray = Array
+  return givenArray.filter(item => item[identifierName] === id)
+}
+
 function generateUniqueId(length: number) {
   // userId length must be 20
   // gameId length must be 16
@@ -29,4 +34,4 @@ function getResponseObject(
 
 
 
-export { generateUniqueId, getResponseObject } 
+export { generateUniqueId, getResponseObject ,getObjectByid  } 

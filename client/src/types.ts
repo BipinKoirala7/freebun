@@ -34,7 +34,10 @@ type ReduxStoreT<T> = {
 }
 
 type NotificationStoreT = {
-  message: string,
+  messageObj: {
+    message: string,
+    id:string
+  },
   isError: boolean,
   isSucess: boolean,
   isNeutral:boolean
@@ -99,11 +102,13 @@ type SessionPassportUserT = {
   message: string,
   IsUserInSession:boolean,
   User: [{
-      user_id: string,
-      email: string,
-      password: string,
-      provider_id: string,
-      username:string
+    user_id: string,
+    email: string,
+    password: string,
+    provider_id: string,
+    username: string,
+    photos: string,
+    provider:string
   }]
 }
 
@@ -112,7 +117,8 @@ type ServerApiResponsePropsT<T> = {
   message: string,
   data: Array<T> | [],
   status: number,
-  ok: boolean
+  ok: boolean,
+  error:boolean,
 }
 // end
 
@@ -154,7 +160,7 @@ type UserT = {
   user_id: string,
   provider_id: string,
   username: string,
-  photo:string,
+  photos:string,
   email: string,
   password: string,
   provider: string,

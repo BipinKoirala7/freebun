@@ -3,12 +3,12 @@ import axios, { AxiosResponse } from 'axios'
 
 import { generateUniqueId, getResponseObject } from '../lib/util'
 import { ServerApiResponsePropsT, wordArrT } from '../types'
-import { IsUserLogedIn, checkValidGameId, checkWordCollectionPresence } from '../middleware'
+import { IsUserLogedIn, checkValidGameId, checkWordCollectionId, checkWordCollectionPresence } from '../middleware'
 
 const wordCollectionRoutes = express.Router()
 
 // get routes for word collection
-wordCollectionRoutes.get('/game/:game_id',IsUserLogedIn,checkValidGameId,checkWordCollectionPresence, async (req: Request, res: Response) => {
+wordCollectionRoutes.get('/game/:game_id',IsUserLogedIn,checkValidGameId,checkWordCollectionId, async (req: Request, res: Response) => {
     console.log('start route /game/:game_id', req.params)
     const gameId = req.params.game_id
     try {
@@ -62,7 +62,7 @@ wordCollectionRoutes.post('/game/:game_id/new',IsUserLogedIn,checkValidGameId,ch
     console.log('end route /game/:game_id/new')
 })
 
-wordCollectionRoutes.patch('/game/:game_id/word',checkValidGameId, async (req: Request, res: Response) => {
+wordCollectionRoutes.patch('/game/:game_id/word',checkValidGameId,checkWordCollectionId, async (req: Request, res: Response) => {
     console.log('start route /game/:game_id/word', req.params,req.body)
     // nested routing is not supported without custom routes and I don't see any prospect in learning cutom
     // routes so I will bend the way with get filter push and post

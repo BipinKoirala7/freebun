@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const addWordToArr = createAsyncThunk<'add/wordCollection',{word:string,game_id:string}>('add/wordCollection', async ({word,game_id}) => {
     try {
-        console.log(word)
+        console.log(word,game_id)
         const response: AxiosResponse = await axios.patch(`http://localhost:4000/api/wordCollection/game/${game_id}/word`, {
             word:word
         })

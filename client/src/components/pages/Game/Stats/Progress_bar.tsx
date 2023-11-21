@@ -1,3 +1,4 @@
+import { getBadge } from "../../../../lib/util"
 import { WholeStoreT, type ProgressT, gameDataStoreT } from "../../../../types"
 import { useSelector } from "react-redux"
 
@@ -16,7 +17,7 @@ function Progress_bar(props: ProgressT) {
 
   return (
     <div className="w-[100%] h-[100%] flex flex-col gap-4">
-        <p>Begineer</p>
+      <p>{getBadge(getProgress()*1)}</p>
         <div className={`h-[1rem] bg-primary w-[100%] rounded-xl`}>
               <div style={{width:`${+getProgress()}%`}} className={` h-[100%] bg-secondary text-black 
                 rounded-xl flex justify-end items-center text-[0.8rem] transition-class `}>
